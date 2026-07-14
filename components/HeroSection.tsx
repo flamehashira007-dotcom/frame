@@ -78,10 +78,10 @@ export default function HeroSection() {
 
   return (
     <div ref={rootRef}>
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pt-32 md:pt-40 lg:pt-48 max-w-5xl mx-auto">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pt-72 md:pt-72 lg:pt-100 max-w-5xl mx-auto">
         <h1
           ref={headingRef}
-          className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight leading-[1.1] mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] mb-5 sm:mb-6"
           style={{ perspective: 800 }}
         >
           <span className="inline-block overflow-hidden align-bottom">
@@ -104,7 +104,7 @@ export default function HeroSection() {
 
         <p
           ref={paraRef}
-          className="text-base md:text-lg text-gray-400 max-w-2xl mb-10 leading-relaxed"
+          className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mb-8 sm:mb-10 leading-relaxed"
         >
           Innovative design solutions for technology firms and emerging
           businesses weary of the typical aesthetic methodology. Arriving
@@ -112,39 +112,39 @@ export default function HeroSection() {
         </p>
 
         <div ref={formRef} className="w-full max-w-lg">
-          <div className="flex items-center gap-2 bg-white/[0.04] backdrop-blur-sm border border-white/[0.1] rounded-2xl p-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white/4 backdrop-blur-sm border border-white/10 rounded-2xl p-2 overflow-hidden">
             <input
               type="email"
               placeholder="johndoe@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 bg-transparent px-5 py-4 text-base outline-none placeholder:text-gray-500 text-white"
+              className="flex-1 min-w-0 bg-transparent px-4 sm:px-5 py-3.5 sm:py-4 text-base outline-none placeholder:text-gray-500 text-white"
             />
             <button
               ref={ctaRef}
-              className="flex items-center gap-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-black px-6 py-4 rounded-xl font-semibold text-base transition-colors shrink-0"
+              className="flex items-center justify-center gap-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-black px-6 py-3.5 sm:py-4 rounded-xl font-semibold text-base transition-colors shrink-0 w-full sm:w-auto"
             >
               Get notified
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mt-4 text-xs text-gray-500">
             <Lock className="w-3 h-3" />
             <span>No spam.</span>
-            <span className="mx-1">•</span>
+            <span className="mx-1 hidden sm:inline">•</span>
             <span>Unsubscribe anytime.</span>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/[0.08] pt-10 pb-12">
-        <p className="text-center text-xs text-gray-500 mb-8 tracking-wide uppercase">
+      <div className="relative z-10 border-t border-white/8 pt-8 sm:pt-10 pb-10 sm:pb-12">
+        <p className="text-center text-xs text-gray-500 mb-6 sm:mb-8 tracking-wide uppercase">
           Trusted by future-forward companies
         </p>
         <div
           ref={trustRef}
-          className="flex flex-wrap items-center justify-center gap-8 md:gap-14 px-4"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-14 px-4"
         >
           {companies.map((company) => (
             <div
