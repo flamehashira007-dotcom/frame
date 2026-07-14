@@ -1,0 +1,147 @@
+import { defineField, defineType } from "sanity";
+
+export default defineType({
+  name: "post",
+  title: "Post",
+  type: "document",
+  groups: [
+    { name: "content", title: "Content", default: true },
+    { name: "seo", title: "SEO" },
+  ],
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      group: "content",
+      validation: (r) => r.required().max(90),
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      group: "content",
+      options: { source: "title", maxLength: 96 },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "excerpt",
+      title: "Excerpt",
+      type: "text",
+      rows: 3,
+      group: "content",
+      description: "Short summary shown on cards and used as a fallback meta description.",
+      validation: (r) => r.max(200),
+    }),
+    defineField({
+      name: "coverImage",
+      title: "Cover image",
+      type: "image",
+      group: "content",
+      options: { hotspot: true },
+      fields: [
+        defineField({ name: "alt", title: "Alt text", type: "string", validation: (r) => r.required() }),
+      ],
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "author",
+      title: "Author",
+      type: "reference",
+      to: [{ type: "author" }],
+      group: "content",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      group: "content",
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+    }),
+    defineField({
+      name: "publishedAt",
+      title: "Published at",
+      type: "datetime",
+      group: "content",
+      initialValue: () => new Date().toISOString(),
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "updatedAt",
+      title: "Updated at",
+      type: "datetime",
+      group: "content",
+      description: "Set this when you materially revise the post — powers dateModified in schema.org.",
+    }),
+    defineField({
+      name: "readingTime",
+      title: "Reading time (minutes)",
+      type: "number",
+      group: "content",
+    }),
+    defineField({
+      name: "body",
+      title: "Body",
+      type: "blockContent",
+      group: "content",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "featured",
+      title: "Featured",
+      type: "boolean",
+      group: "content",
+      initialValue: false,
+    }),
+    // ── SEO group ──
+    defineField({
+      name: "seoTitle",
+      title: "SEO title",
+      type: "string",
+      group: "seo",
+      description: "Overrides <title> and og:title. 50–60 characters ideal.",
+      validation: (r) => r.max(70),
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "Meta description",
+      type: "text",
+      rows: 3,
+      group: "seo",
+      description: "150–160 characters ideal. Falls back to excerpt if empty.",
+      validation: (r) => r.max(180),
+    }),
+    defineField({
+      name: "seoImage",
+      title: "Social share image (og:image)",
+      type: "image",
+      group: "seo",
+      description: "1200×630 recommended. Falls back to cover image if empty.",
+    }),
+    defineField({
+      name: "noIndex",
+      title: "Hide from search engines",
+      type: "boolean",
+      group: "seo",
+      initialValue: false,
+    }),
+    defineField({
+      name: "canonicalUrl",
+      title: "Canonical URL override",
+      type: "url",
+      group: "seo",
+      description: "Only set this if this content is republished from elsewhere.",
+    }),
+  ],
+  preview: {
+    select: { title: "title", media: "coverImage", subtitle: "publishedAt" },
+    prepare({ title, media, subtitle }) {
+      return {
+        title,
+        media,
+        subtitle: subtitle ? new Date(subtitle).toLocaleDateString() : "Draft",
+      };
+    },
+  },
+});
