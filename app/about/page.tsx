@@ -5,7 +5,6 @@ import AboutHero from "@/components/about/AboutHero";
 import AboutStory from "@/components/about/AboutStory";
 import AboutValues from "@/components/about/AboutValues";
 import AboutTimeline from "@/components/about/AboutTimeline";
-import AboutTeam from "@/components/about/AboutTeam";
 import AboutCulture from "@/components/about/AboutCulture";
 import AboutCTA from "@/components/about/AboutCTA";
 import Footer from "@/components/Footer";
@@ -26,7 +25,6 @@ export default function AboutPage() {
       <AboutStory />
       <AboutValues />
       <AboutTimeline />
-      <AboutTeam />
       <AboutCulture />
       <AboutCTA />
       <Footer />
