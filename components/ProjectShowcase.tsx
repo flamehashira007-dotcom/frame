@@ -1,90 +1,69 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { ArrowRight, Layers, Sparkles } from "lucide-react";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const projects = [
   {
+    id: "neon-frame",
+    icon: Layers,
+    label: "Product",
     number: "01",
-    title: "Neon Frame System.",
     year: "2025",
-    image: "/project-neonframe.png",
-    span: "large", // col-span-2 on md+
+    title: "Neon Frame System.",
+    body:
+      "A component and motion system built for speed — tokens, variants, and animation primitives that scale across a whole product line.",
+    tags: ["Design System", "Motion", "Tokens", "Dev Handoff"],
+    accent: "#CCFF00",
+    href: "/work/neon-frame-system",
   },
   {
+    id: "music-os",
+    icon: Sparkles,
+    label: "AI Product",
     number: "02",
+    year: "2024",
     title: "Music OS AI.",
-    year: "2024",
-    image: "/project-musicos.png",
-    span: "small",
-  },
-  {
-    number: "03",
-    title: "Botly® Port App.",
-    year: "2022",
-    image: "/project-botly.png",
-    span: "third",
-  },
-  {
-    number: "04",
-    title: "Curea Studio",
-    year: "2020",
-    image: "/project-curea.png",
-    span: "third",
-  },
-  {
-    number: "05",
-    title: "Sos Core Identity App.",
-    year: "2024",
-    image: "/project-sosapp.png",
-    span: "third",
+    body:
+      "An AI-native listening interface, from early concept through to a shipped product — including the parts that didn't work the first time.",
+    tags: ["Product Design", "AI/UX", "Prototyping", "Web App"],
+    accent: "#a78bfa",
+    href: "/work/music-os-ai",
   },
 ];
 
-/* ── Reveal-on-scroll wrapper ── */
-function RevealCard({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+export default function ProjectShowcase() {
+  const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.15 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    if (prefersReducedMotion()) {
+      gsap.set("[data-proj-card]", { opacity: 1, y: 0 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>("[data-proj-card]").forEach((card) => {
+        gsap.to(card, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          overwrite: "auto",
+          scrollTrigger: { trigger: card, start: "top 92%", once: true },
+        });
+      });
+    }, rootRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        visible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-10"
-      } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <section
+      ref={rootRef}
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-32 px-6 md:px-12 lg:px-20 overflow-hidden"
     >
-      {children}
-    </div>
-  );
-}
-
-export default function ProjectShowcase() {
-  return (
-    <section className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden">
       {/* Decorative blurs */}
       <div className="absolute top-32 right-0 w-[500px] h-[500px] rounded-full bg-violet-500/[0.02] blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/[0.01] blur-[160px] pointer-events-none" />
@@ -123,82 +102,144 @@ export default function ProjectShowcase() {
           </div>
         </div>
 
-        {/* ── Project Grid — Row 1 (2 cards: 60/40 split) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mb-5">
-          {/* Large card */}
-          <RevealCard delay={0} className="md:col-span-3 h-full">
-            <ProjectCard project={projects[0]} stretch />
-          </RevealCard>
+        {/* ── Project cards — same treatment as Portfolio Decks ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+          {projects.map((p) => {
+            const Icon = p.icon;
 
-          {/* Smaller card */}
-          <RevealCard delay={120} className="md:col-span-2 h-full">
-            <ProjectCard project={projects[1]} stretch />
-          </RevealCard>
-        </div>
+            return (
+              <div
+                key={p.id}
+                data-proj-card
+                className="group relative rounded-3xl p-8 md:p-10 overflow-hidden backdrop-blur-xl flex flex-col transition-shadow duration-500"
+                style={{
+                  opacity: 0,
+                  transform: "translateY(40px)",
+                  boxShadow: "0 0 0 1px rgba(255,255,255,0.10)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 0 0 1px ${p.accent}40, 0 16px 70px ${p.accent}12, inset 0 1px 0 rgba(255,255,255,0.12)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "0 0 0 1px rgba(255,255,255,0.10)";
+                }}
+              >
+                {/* Glass wash */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: `linear-gradient(150deg, ${p.accent}0d 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.025) 100%)`,
+                  }}
+                />
+                {/* Top shimmer */}
+                <div
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px pointer-events-none"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${p.accent}60, transparent)`,
+                  }}
+                />
+                {/* Corner glow */}
+                <div
+                  className="absolute -top-24 -right-20 w-56 h-56 rounded-full blur-[90px] pointer-events-none opacity-30 group-hover:opacity-100 transition-opacity duration-700"
+                  style={{ background: `${p.accent}18` }}
+                />
 
-        {/* ── Project Grid — Row 2 (3 equal cards) ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {projects.slice(2).map((project, i) => (
-            <RevealCard key={project.number} delay={i * 120}>
-              <ProjectCard project={project} aspectRatio="aspect-[4/3]" />
-            </RevealCard>
-          ))}
+                <div className="relative flex flex-col flex-1">
+                  {/* Icon + label */}
+                  <div className="flex items-center justify-between mb-7">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                      style={{
+                        background: `${p.accent}1c`,
+                        border: `1px solid ${p.accent}40`,
+                      }}
+                    >
+                      <Icon className="w-5 h-5" style={{ color: p.accent }} />
+                    </div>
+
+                    <span
+                      className="text-[11px] tracking-wider uppercase font-medium px-3 py-1.5 rounded-full backdrop-blur-md"
+                      style={{
+                        background: `${p.accent}12`,
+                        border: `1px solid ${p.accent}28`,
+                        color: p.accent,
+                      }}
+                    >
+                      {p.label}
+                    </span>
+                  </div>
+
+                  {/* Title — fixed height so both cards line up */}
+                  <h2
+                    className="text-2xl font-semibold tracking-tight leading-snug mb-3 text-white transition-colors duration-300 group-hover:text-[color:var(--proj-accent)] md:min-h-[4rem]"
+                    style={{ ["--proj-accent" as string]: p.accent }}
+                  >
+                    {p.title}
+                  </h2>
+
+                  {/* Body — fixed height */}
+                  <p className="text-sm text-gray-400 leading-relaxed mb-7 md:min-h-[5rem]">
+                    {p.body}
+                  </p>
+
+                  {/* Tags — fixed height, top-aligned */}
+                  <div className="flex flex-wrap content-start gap-2 mb-8 md:min-h-[4.5rem]">
+                    {p.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="text-xs px-3.5 py-1.5 rounded-full text-gray-400 bg-white/[0.04] border border-white/[0.09] h-fit"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Project meta — pinned to bottom */}
+                  <div className="flex items-center gap-4 text-xs text-gray-500 mb-7 mt-auto pt-6 border-t border-white/[0.07]">
+                    <span className="flex items-center gap-2 font-mono">
+                      {p.number}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-gray-700" />
+                    <span>{p.year}</span>
+                  </div>
+
+                  {/* Primary CTA */}
+                  <a
+                    href={p.href}
+                    className="group/btn flex items-center justify-center gap-3 px-7 py-4 rounded-full font-semibold text-sm transition-all duration-300 w-full"
+                    style={{
+                      background: `linear-gradient(135deg, ${p.accent}18, rgba(255,255,255,0.04))`,
+                      border: `1px solid ${p.accent}35`,
+                      color: "white",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = p.accent;
+                      e.currentTarget.style.color = "black";
+                      e.currentTarget.style.boxShadow = `0 0 30px ${p.accent}30`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = `linear-gradient(135deg, ${p.accent}18, rgba(255,255,255,0.04))`;
+                      e.currentTarget.style.color = "white";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    View the project
+                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
+                  </a>
+
+                  {/* Secondary link */}
+                  <a
+                    href={p.href}
+                    className="text-xs text-gray-500 hover:text-gray-300 transition-colors text-center mt-4"
+                  >
+                    or read the case study
+                  </a>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
-  );
-}
-
-/* ── Individual Project Card ── */
-function ProjectCard({
-  project,
-  aspectRatio,
-  stretch,
-}: {
-  project: (typeof projects)[number];
-  aspectRatio?: string;
-  stretch?: boolean;
-}) {
-  return (
-    <div className={`group relative ${stretch ? "h-full" : ""}`}>
-      {/* Image container with glass frame */}
-      <div
-        className={`relative ${stretch ? "h-full min-h-[360px]" : aspectRatio || "aspect-[4/3]"} rounded-3xl overflow-hidden bg-gradient-to-b from-white/[0.05] to-white/[0.01] border border-white/[0.07] backdrop-blur-xl hover:border-white/[0.16] transition-all duration-500 hover:shadow-[0_16px_70px_rgba(204,255,0,0.04),inset_0_1px_0_rgba(255,255,255,0.08)]`}
-      >
-        {/* Shimmer highlight */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
-
-        {/* Hover glow */}
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-60 h-60 rounded-full bg-[#CCFF00]/[0.03] blur-[80px] group-hover:bg-[#CCFF00]/[0.07] transition-all duration-700 pointer-events-none z-10" />
-
-        {/* Image */}
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-        {/* Hover overlay — project number */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
-          <span className="text-7xl font-bold text-white/10">{project.number}</span>
-        </div>
-      </div>
-
-      {/* Info bar */}
-      <div className="flex items-center justify-between mt-4 px-1">
-        <div className="flex items-baseline gap-3">
-          <span className="text-xs text-gray-600 font-mono">{project.number}.</span>
-          <h3 className="text-base sm:text-lg font-semibold tracking-tight group-hover:text-[#CCFF00] transition-colors duration-300">
-            {project.title}
-          </h3>
-        </div>
-        <span className="text-sm text-gray-600 font-mono">{project.year}</span>
-      </div>
-    </div>
   );
 }

@@ -146,7 +146,7 @@ export default function AboutValues() {
                       <Icon className="w-5 h-5" style={{ color: v.accent }} />
                     </div>
                     <span
-                      className="text-5xl font-bold tracking-tighter leading-none text-white/[0.07] transition-colors duration-500"
+                      className="text-5xl font-bold tracking-tighter leading-none text-white transition-colors duration-500"
                       style={{ ["--vl-accent" as string]: v.accent }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = `${v.accent}30`)}
                       onMouseLeave={(e) => (e.currentTarget.style.color = "")}

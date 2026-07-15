@@ -40,8 +40,9 @@ function RankViz() {
   );
 }
 
-/* ── micro-visual: sparkline ── */
-function SparkViz({ color = "#CCFF00" }: { color?: string }) {
+
+/* ── micro-visual: ROAS gauge arc (Google Ads) ── */
+function GaugeViz({ color }: { color: string }) {
   const [on, setOn] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -51,35 +52,277 @@ function SparkViz({ color = "#CCFF00" }: { color?: string }) {
     o.observe(el);
     return () => o.disconnect();
   }, []);
+  /* Arc math: semi-circle from 180° to 0° (left to right) */
+  const r = 42;
+  const cx = 60;
+  const cy = 50;
+  const circumference = Math.PI * r; /* half-circle */
+  const fillPct = 0.72; /* 72% — the "performance" value */
   return (
-    <div ref={ref} className="h-16">
-      <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="w-full h-full" fill="none">
+    <div ref={ref} className="flex flex-col items-center">
+      <svg viewBox="0 0 120 65" className="w-full max-w-[140px]" fill="none">
+        {/* track */}
         <path
-          d="M4,50 Q28,46 48,38 T92,30 Q116,26 136,14 T196,8"
-          stroke={color}
-          strokeWidth="2"
+          d={`M ${cx - r},${cy} A ${r},${r} 0 0,1 ${cx + r},${cy}`}
+          stroke="rgba(255,255,255,0.08)"
+          strokeWidth="7"
           strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          style={{
-            strokeDasharray: 260,
-            strokeDashoffset: on ? 0 : 260,
-            transition: "stroke-dashoffset 1.8s ease-out",
-          }}
+          fill="none"
         />
+        {/* filled arc */}
         <path
-          d="M4,50 Q28,46 48,38 T92,30 Q116,26 136,14 T196,8"
+          d={`M ${cx - r},${cy} A ${r},${r} 0 0,1 ${cx + r},${cy}`}
           stroke={color}
           strokeWidth="7"
           strokeLinecap="round"
-          opacity="0.2"
-          vectorEffect="non-scaling-stroke"
-          style={{ filter: "blur(5px)" }}
+          fill="none"
+          style={{
+            strokeDasharray: circumference,
+            strokeDashoffset: on ? circumference * (1 - fillPct) : circumference,
+            transition: "stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)",
+          }}
         />
+        {/* glow duplicate */}
+        <path
+          d={`M ${cx - r},${cy} A ${r},${r} 0 0,1 ${cx + r},${cy}`}
+          stroke={color}
+          strokeWidth="12"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.15"
+          style={{
+            filter: "blur(6px)",
+            strokeDasharray: circumference,
+            strokeDashoffset: on ? circumference * (1 - fillPct) : circumference,
+            transition: "stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)",
+          }}
+        />
+        {/* center value */}
+        <text
+          x={cx} y={cy - 6}
+          textAnchor="middle"
+          className="text-[14px] font-bold transition-opacity duration-700"
+          fill={color}
+          style={{ opacity: on ? 1 : 0, transitionDelay: "800ms" }}
+        >
+          4.2×
+        </text>
+        <text
+          x={cx} y={cy + 5}
+          textAnchor="middle"
+          className="text-[8px] font-mono"
+          fill="#9ca3af"
+          style={{ opacity: on ? 1 : 0, transition: "opacity 0.5s", transitionDelay: "1s" }}
+        >
+          ROAS
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+/* ── micro-visual: radar chart (Meta Ads) ── */
+function RadarViz({ color }: { color: string }) {
+  const [on, setOn] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const o = new IntersectionObserver(([e]) => e.isIntersecting && setOn(true), { threshold: 0.2 });
+    o.observe(el);
+    return () => o.disconnect();
+  }, []);
+  const dims = [
+    { label: "Reach", val: 0.9 },
+    { label: "CTR", val: 0.65 },
+    { label: "CPA", val: 0.8 },
+    { label: "ROAS", val: 0.72 },
+    { label: "Eng", val: 0.85 },
+  ];
+  const cx = 60, cy = 40, R = 32;
+  const angle = (i: number) => (Math.PI * 2 * i) / dims.length - Math.PI / 2;
+  const poly = (scale: number) =>
+    dims.map((_, i) => {
+      const a = angle(i);
+      return `${cx + Math.cos(a) * R * scale},${cy + Math.sin(a) * R * scale}`;
+    }).join(" ");
+  const dataPoly = dims.map((d, i) => {
+    const a = angle(i);
+    const s = on ? d.val : 0.08;
+    return `${cx + Math.cos(a) * R * s},${cy + Math.sin(a) * R * s}`;
+  }).join(" ");
+
+  return (
+    <div ref={ref} className="flex flex-col items-center">
+      <svg viewBox="0 0 120 85" className="w-full max-w-[150px]" fill="none">
+        {/* grid rings */}
+        {[0.33, 0.66, 1].map((s) => (
+          <polygon
+            key={s}
+            points={poly(s)}
+            stroke="rgba(255,255,255,0.06)"
+            strokeWidth="0.7"
+            fill="none"
+          />
+        ))}
+        {/* axis lines */}
+        {dims.map((_, i) => {
+          const a = angle(i);
+          return (
+            <line
+              key={i}
+              x1={cx} y1={cy}
+              x2={cx + Math.cos(a) * R} y2={cy + Math.sin(a) * R}
+              stroke="rgba(255,255,255,0.04)"
+              strokeWidth="0.5"
+            />
+          );
+        })}
+        {/* data fill */}
+        <polygon
+          points={dataPoly}
+          fill={`${color}20`}
+          stroke={color}
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+          style={{ transition: "all 1.2s cubic-bezier(.4,0,.2,1)" }}
+        />
+        {/* data dots */}
+        {dims.map((d, i) => {
+          const a = angle(i);
+          const s = on ? d.val : 0.08;
+          return (
+            <circle
+              key={i}
+              cx={cx + Math.cos(a) * R * s}
+              cy={cy + Math.sin(a) * R * s}
+              r="2"
+              fill={color}
+              style={{
+                transition: "all 1.2s cubic-bezier(.4,0,.2,1)",
+                transitionDelay: `${i * 60}ms`,
+              }}
+            />
+          );
+        })}
+        {/* labels */}
+        {dims.map((d, i) => {
+          const a = angle(i);
+          const lx = cx + Math.cos(a) * (R + 11);
+          const ly = cy + Math.sin(a) * (R + 11);
+          return (
+            <text
+              key={i}
+              x={lx} y={ly + 3}
+              textAnchor="middle"
+              className="text-[7px] font-mono"
+              fill="#6b7280"
+            >
+              {d.label}
+            </text>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+/* ── micro-visual: concentric ripple rings (Email Marketing) ── */
+function RippleViz({ color }: { color: string }) {
+  const [on, setOn] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const o = new IntersectionObserver(([e]) => e.isIntersecting && setOn(true), { threshold: 0.2 });
+    o.observe(el);
+    return () => o.disconnect();
+  }, []);
+  const rings = [
+    { r: 10, label: "42%", desc: "click" },
+    { r: 22, label: "68%", desc: "open" },
+    { r: 34, label: "97%", desc: "delivered" },
+  ];
+  const cx = 60, cy = 42;
+  return (
+    <div ref={ref} className="flex flex-col items-center">
+      <svg viewBox="0 0 120 85" className="w-full max-w-[150px]" fill="none">
+        {/* expanding rings */}
+        {rings.map((ring, i) => (
+          <g key={i}>
+            <circle
+              cx={cx} cy={cy} r={ring.r}
+              stroke={color}
+              strokeWidth="1"
+              fill="none"
+              opacity={on ? 0.15 + i * 0.15 : 0}
+              style={{
+                transform: on ? "scale(1)" : "scale(0)",
+                transformOrigin: `${cx}px ${cy}px`,
+                transition: `all 0.9s cubic-bezier(.4,0,.2,1)`,
+                transitionDelay: `${(rings.length - 1 - i) * 250}ms`,
+              }}
+            />
+            <circle
+              cx={cx} cy={cy} r={ring.r}
+              stroke={color}
+              strokeWidth="5"
+              fill="none"
+              opacity={on ? 0.06 : 0}
+              style={{
+                filter: "blur(4px)",
+                transform: on ? "scale(1)" : "scale(0)",
+                transformOrigin: `${cx}px ${cy}px`,
+                transition: `all 0.9s cubic-bezier(.4,0,.2,1)`,
+                transitionDelay: `${(rings.length - 1 - i) * 250}ms`,
+              }}
+            />
+          </g>
+        ))}
+        {/* center dot */}
         <circle
-          cx="196" cy="8" r="3.5" fill={color}
-          className="transition-opacity duration-500 delay-1000"
-          style={{ opacity: on ? 1 : 0 }}
+          cx={cx} cy={cy} r="3"
+          fill={color}
+          style={{
+            opacity: on ? 1 : 0,
+            transition: "opacity 0.5s",
+            transitionDelay: "0.2s",
+          }}
         />
+        {/* metric labels along rings */}
+        {rings.map((ring, i) => (
+          <text
+            key={`lbl-${i}`}
+            x={cx + ring.r + 3}
+            y={cy - 3}
+            className="text-[7px] font-mono"
+            fill={i === 0 ? color : "#6b7280"}
+            style={{
+              opacity: on ? 1 : 0,
+              transition: "opacity 0.5s",
+              transitionDelay: `${(rings.length - 1 - i) * 250 + 500}ms`,
+            }}
+          >
+            {ring.label}
+          </text>
+        ))}
+        {/* bottom labels */}
+        {rings.map((ring, i) => (
+          <text
+            key={`desc-${i}`}
+            x={cx + ring.r + 3}
+            y={cy + 5}
+            className="text-[6px] font-mono"
+            fill="#4b5563"
+            style={{
+              opacity: on ? 1 : 0,
+              transition: "opacity 0.5s",
+              transitionDelay: `${(rings.length - 1 - i) * 250 + 600}ms`,
+            }}
+          >
+            {ring.desc}
+          </text>
+        ))}
       </svg>
     </div>
   );
@@ -104,54 +347,290 @@ function PulseGrid({ color }: { color: string }) {
   );
 }
 
-/* ── micro-visual: waveform ── */
-function WaveViz({ color }: { color: string }) {
-  const bars = [30, 55, 80, 45, 95, 62, 38, 72, 50, 88, 42, 66, 34, 78];
+/* ── micro-visual: NLE timeline (Video Editing) ── */
+function TimelineViz({ color }: { color: string }) {
+  const [on, setOn] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const o = new IntersectionObserver(([e]) => e.isIntersecting && setOn(true), { threshold: 0.2 });
+    o.observe(el);
+    return () => o.disconnect();
+  }, []);
+  const tracks = [
+    [
+      { x: 4, w: 38, clr: color },
+      { x: 46, w: 24, clr: `${color}88` },
+      { x: 74, w: 50, clr: color },
+      { x: 128, w: 30, clr: `${color}66` },
+      { x: 162, w: 34, clr: color },
+    ],
+    [
+      { x: 4, w: 28, clr: `${color}55` },
+      { x: 36, w: 44, clr: `${color}90` },
+      { x: 84, w: 20, clr: `${color}55` },
+      { x: 108, w: 56, clr: `${color}80` },
+      { x: 168, w: 28, clr: `${color}55` },
+    ],
+  ];
   return (
-    <div className="flex items-end gap-1 h-16">
-      {bars.map((h, i) => (
-        <div
-          key={i}
-          className="flex-1 rounded-sm origin-bottom"
+    <div ref={ref} className="h-16">
+      <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="w-full h-full" fill="none">
+        {/* track backgrounds */}
+        <rect x="2" y="8" width="196" height="18" rx="3" fill="rgba(255,255,255,0.03)" />
+        <rect x="2" y="32" width="196" height="18" rx="3" fill="rgba(255,255,255,0.03)" />
+        {/* track labels */}
+        <text x="6" y="5" className="text-[5px] font-mono" fill="#4b5563">V1</text>
+        <text x="6" y="29" className="text-[5px] font-mono" fill="#4b5563">A1</text>
+        {/* clips on track 1 */}
+        {tracks[0].map((clip, i) => (
+          <rect
+            key={`v-${i}`}
+            x={clip.x} y={10} width={clip.w} height={14} rx={2}
+            fill={clip.clr}
+            opacity={on ? 0.7 : 0}
+            style={{
+              transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+              transitionDelay: `${i * 100}ms`,
+              transform: on ? "scaleX(1)" : "scaleX(0)",
+              transformOrigin: `${clip.x}px 17px`,
+            }}
+          />
+        ))}
+        {/* clips on track 2 */}
+        {tracks[1].map((clip, i) => (
+          <rect
+            key={`a-${i}`}
+            x={clip.x} y={34} width={clip.w} height={14} rx={2}
+            fill={clip.clr}
+            opacity={on ? 0.5 : 0}
+            style={{
+              transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+              transitionDelay: `${i * 100 + 300}ms`,
+              transform: on ? "scaleX(1)" : "scaleX(0)",
+              transformOrigin: `${clip.x}px 41px`,
+            }}
+          />
+        ))}
+        {/* playhead */}
+        <line
+          x1="80" y1="3" x2="80" y2="55"
+          stroke={color}
+          strokeWidth="1.5"
+          vectorEffect="non-scaling-stroke"
+          opacity={on ? 1 : 0}
           style={{
-            height: `${h}%`,
-            background: `linear-gradient(to top, ${color}35, ${color})`,
-            animation: `wave 1.6s ease-in-out ${i * 80}ms infinite alternate`,
+            transition: "opacity 0.5s",
+            transitionDelay: "0.8s",
+            animation: on ? "playhead 3s ease-in-out 1.2s infinite alternate" : undefined,
           }}
         />
-      ))}
+        <polygon
+          points="77,2 83,2 80,6"
+          fill={color}
+          opacity={on ? 1 : 0}
+          style={{
+            transition: "opacity 0.5s",
+            transitionDelay: "0.8s",
+            animation: on ? "playhead 3s ease-in-out 1.2s infinite alternate" : undefined,
+          }}
+        />
+      </svg>
     </div>
   );
 }
 
-/* ── micro-visual: automation nodes ── */
-function FlowViz({ color }: { color: string }) {
+/* ── micro-visual: orbital constellation (Marketing Automation) ── */
+function OrbitViz({ color }: { color: string }) {
+  const [on, setOn] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const o = new IntersectionObserver(([e]) => e.isIntersecting && setOn(true), { threshold: 0.2 });
+    o.observe(el);
+    return () => o.disconnect();
+  }, []);
+  const cx = 100, cy = 30;
+  const orbits = [
+    { rx: 20, ry: 12, dur: "4s", size: 3, delay: "0s" },
+    { rx: 40, ry: 20, dur: "6s", size: 2.5, delay: "1s" },
+    { rx: 65, ry: 26, dur: "8s", size: 2, delay: "0.5s" },
+  ];
   return (
-    <div className="h-16">
-      <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="w-full h-full" fill="none">
-        <path
-          d="M14,30 H56 M76,30 H118 M138,30 H186"
-          stroke={`${color}55`}
-          strokeWidth="1.5"
-          strokeDasharray="4 4"
-          vectorEffect="non-scaling-stroke"
+    <div ref={ref} className="h-16">
+      <svg viewBox="0 0 200 60" preserveAspectRatio="xMidYMid meet" className="w-full h-full" fill="none">
+        {/* orbit paths */}
+        {orbits.map((orb, i) => (
+          <ellipse
+            key={`path-${i}`}
+            cx={cx} cy={cy} rx={orb.rx} ry={orb.ry}
+            stroke={`${color}18`}
+            strokeWidth="0.8"
+            fill="none"
+            style={{
+              opacity: on ? 1 : 0,
+              transition: "opacity 0.8s",
+              transitionDelay: `${i * 200}ms`,
+            }}
+          />
+        ))}
+        {/* orbiting nodes */}
+        {orbits.map((orb, i) => (
+          <circle
+            key={`node-${i}`}
+            cx={cx + orb.rx} cy={cy}
+            r={orb.size}
+            fill={color}
+            opacity={on ? 0.9 - i * 0.15 : 0}
+            style={{
+              transition: "opacity 0.6s",
+              transitionDelay: `${i * 200 + 400}ms`,
+              transformOrigin: `${cx}px ${cy}px`,
+              animation: on ? `orbit-${i} ${orb.dur} linear ${orb.delay} infinite` : undefined,
+            }}
+          />
+        ))}
+        {/* glow trails */}
+        {orbits.map((orb, i) => (
+          <circle
+            key={`glow-${i}`}
+            cx={cx + orb.rx} cy={cy}
+            r={orb.size + 3}
+            fill={color}
+            opacity={on ? 0.12 : 0}
+            style={{
+              filter: "blur(4px)",
+              transformOrigin: `${cx}px ${cy}px`,
+              animation: on ? `orbit-${i} ${orb.dur} linear ${orb.delay} infinite` : undefined,
+            }}
+          />
+        ))}
+        {/* center hub */}
+        <circle
+          cx={cx} cy={cy} r="5"
+          fill={`${color}30`}
+          stroke={color}
+          strokeWidth="1"
+          style={{
+            opacity: on ? 1 : 0,
+            transition: "opacity 0.5s",
+            transitionDelay: "0.2s",
+          }}
         />
-        {[4, 66, 128].map((x, i) => (
-          <g key={x}>
+        <circle
+          cx={cx} cy={cy} r="2"
+          fill={color}
+          style={{
+            opacity: on ? 1 : 0,
+            transition: "opacity 0.5s",
+            transitionDelay: "0.3s",
+          }}
+        />
+        {/* hub glow */}
+        <circle
+          cx={cx} cy={cy} r="10"
+          fill={color}
+          opacity={on ? 0.08 : 0}
+          style={{ filter: "blur(6px)", transition: "opacity 0.8s" }}
+        />
+      </svg>
+    </div>
+  );
+}
+
+/* ── micro-visual: animation curve with keyframe diamonds (Motion Graphics) ── */
+function KeyframeViz({ color }: { color: string }) {
+  const [on, setOn] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const o = new IntersectionObserver(([e]) => e.isIntersecting && setOn(true), { threshold: 0.2 });
+    o.observe(el);
+    return () => o.disconnect();
+  }, []);
+  /* Keyframe positions along a bezier-style curve */
+  const keyframes = [
+    { x: 10, y: 48 },
+    { x: 50, y: 42 },
+    { x: 90, y: 14 },
+    { x: 130, y: 28 },
+    { x: 170, y: 10 },
+  ];
+  const curvePath = `M ${keyframes[0].x},${keyframes[0].y} C 30,48 35,42 ${keyframes[1].x},${keyframes[1].y} C 65,42 70,14 ${keyframes[2].x},${keyframes[2].y} C 110,14 115,28 ${keyframes[3].x},${keyframes[3].y} C 150,28 155,10 ${keyframes[4].x},${keyframes[4].y}`;
+
+  return (
+    <div ref={ref} className="h-16">
+      <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="w-full h-full" fill="none">
+        {/* grid lines */}
+        {[15, 30, 45].map((y) => (
+          <line key={y} x1="4" y1={y} x2="196" y2={y} stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
+        ))}
+        {/* curve glow */}
+        <path
+          d={curvePath}
+          stroke={color}
+          strokeWidth="6"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.15"
+          vectorEffect="non-scaling-stroke"
+          style={{ filter: "blur(5px)" }}
+        />
+        {/* main curve */}
+        <path
+          d={curvePath}
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill="none"
+          vectorEffect="non-scaling-stroke"
+          style={{
+            strokeDasharray: 320,
+            strokeDashoffset: on ? 0 : 320,
+            transition: "stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)",
+          }}
+        />
+        {/* keyframe diamonds */}
+        {keyframes.map((kf, i) => (
+          <g key={i}>
             <rect
-              x={x} y={20} width={20} height={20} rx={5}
-              fill={`${color}22`}
-              stroke={`${color}60`}
+              x={kf.x - 4} y={kf.y - 4} width={8} height={8} rx={1.5}
+              fill={`${color}30`}
+              stroke={color}
               strokeWidth="1"
               vectorEffect="non-scaling-stroke"
+              style={{
+                transform: `rotate(45deg)`,
+                transformOrigin: `${kf.x}px ${kf.y}px`,
+                opacity: on ? 1 : 0,
+                transition: "opacity 0.4s",
+                transitionDelay: `${i * 180 + 400}ms`,
+              }}
             />
             <circle
-              cx={x + 10} cy={30} r={2.5} fill={color}
-              style={{ animation: `pulse 2s ease-in-out ${i * 400}ms infinite` }}
+              cx={kf.x} cy={kf.y} r="1.5"
+              fill={color}
+              style={{
+                opacity: on ? 1 : 0,
+                transition: "opacity 0.4s",
+                transitionDelay: `${i * 180 + 500}ms`,
+              }}
             />
           </g>
         ))}
-        <circle cx={192} cy={30} r={4} fill={color} />
+        {/* easing label */}
+        <text
+          x="180" y="54"
+          textAnchor="end"
+          className="text-[7px] font-mono"
+          fill="#4b5563"
+          style={{ opacity: on ? 1 : 0, transition: "opacity 0.5s", transitionDelay: "1.2s" }}
+        >
+          ease-in-out
+        </text>
       </svg>
     </div>
   );
@@ -180,12 +659,12 @@ const channels: Channel[] = [
   {
     icon: MousePointerClick, title: "Google Ads", accent: "#CCFF00", wide: false,
     blurb: "Search, Shopping, and PMax campaigns tuned to CAC, not vanity impressions.",
-    viz: <SparkViz color="#CCFF00" />,
+    viz: <GaugeViz color="#CCFF00" />,
   },
   {
     icon: Megaphone, title: "Meta Ads", accent: "#a78bfa", wide: false,
     blurb: "Creative testing at volume across Facebook and Instagram, with clean attribution.",
-    viz: <SparkViz color="#a78bfa" />,
+    viz: <RadarViz color="#a78bfa" />,
   },
   {
     icon: PenLine, title: "Content Marketing", accent: "#34d399", wide: false,
@@ -195,22 +674,22 @@ const channels: Channel[] = [
   {
     icon: Mail, title: "Email Marketing", accent: "#f472b6", wide: false,
     blurb: "Lifecycle flows, segmentation, and campaigns that people don't reflexively delete.",
-    viz: <SparkViz color="#f472b6" />,
+    viz: <RippleViz color="#f472b6" />,
   },
   {
     icon: Clapperboard, title: "Video Editing", accent: "#fb923c", wide: false,
     blurb: "Short-form cuts, brand films, and ad variants delivered on a weekly cadence.",
-    viz: <WaveViz color="#fb923c" />,
+    viz: <TimelineViz color="#fb923c" />,
   },
   {
     icon: Waves, title: "Motion Graphics", accent: "#a78bfa", wide: true,
     blurb: "Logo animation, UI motion, and explainers that make the product feel alive.",
-    viz: <WaveViz color="#a78bfa" />,
+    viz: <KeyframeViz color="#a78bfa" />,
   },
   {
     icon: Workflow, title: "Marketing Automation", accent: "#CCFF00", wide: true,
     blurb: "CRM wiring, lead scoring, and triggered journeys so the pipeline runs without a human babysitting it.",
-    viz: <FlowViz color="#CCFF00" />,
+    viz: <OrbitViz color="#CCFF00" />,
   },
 ];
 

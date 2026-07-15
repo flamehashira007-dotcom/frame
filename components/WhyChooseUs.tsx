@@ -1,9 +1,7 @@
 "use client";
 
-
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
-import { Globe, ArrowRight, Sparkles } from "lucide-react";
-import Image from "next/image";
+import { Globe, ArrowRight, Sparkles, PenTool, Target, Video, Type, Code2, Package, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const partnerLogos = [
@@ -19,6 +17,15 @@ const avatars = [
   { id: 1, gradient: "from-amber-500 to-orange-700" },
   { id: 2, gradient: "from-emerald-400 to-teal-700" },
   { id: 3, gradient: "from-violet-400 to-indigo-700" },
+];
+
+const roles = [
+  { label: "Design", initials: "DS", gradient: "from-[#CCFF00] to-emerald-600", span: "col-span-2 row-span-1", icon: PenTool, percent: 98, rotate: "-1deg" },
+  { label: "Strategy", initials: "ST", gradient: "from-violet-500 to-indigo-700", span: "col-span-1 row-span-2", icon: Target, percent: 95, rotate: "1.5deg" },
+  { label: "Motion", initials: "MO", gradient: "from-amber-500 to-orange-700", span: "col-span-1 row-span-1", icon: Video, percent: 92, rotate: "-2deg" },
+  { label: "Copy", initials: "CP", gradient: "from-rose-500 to-pink-700", span: "col-span-1 row-span-1", icon: Type, percent: 90, rotate: "2deg" },
+  { label: "Build", initials: "BD", gradient: "from-sky-500 to-blue-700", span: "col-span-2 row-span-1", icon: Code2, percent: 97, rotate: "-1deg" },
+  { label: "Product", initials: "PM", gradient: "from-fuchsia-500 to-purple-700", span: "col-span-1 row-span-1", icon: Package, percent: 88, rotate: "2deg" },
 ];
 
 /* ── Animated counter hook ── */
@@ -75,13 +82,64 @@ export default function WhyChooseUs() {
         scrollTrigger: { trigger: "[data-title]", start: "top 80%" },
       });
 
-      // Masked image reveal (clip wipe + slow scale)
-      gsap.from("[data-photo]", {
-        clipPath: "inset(100% 0 0 0)",
-        scale: 1.15,
-        duration: 1.3,
-        ease: "power4.out",
+      // Collage cards reveal — tumble in and settle into their tilt
+      gsap.utils.toArray<HTMLElement>("[data-role-card]").forEach((card, i) => {
+        const finalRotate = card.dataset.rotate || "0deg";
+        gsap.fromTo(
+          card,
+          { y: 50, opacity: 0, scale: 0.85, rotate: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotate: finalRotate,
+            duration: 0.8,
+            delay: i * 0.08,
+            ease: "back.out(1.6)",
+            scrollTrigger: { trigger: "[data-photo]", start: "top 78%" },
+          }
+        );
+      });
+
+      // Skill bars fill in
+      gsap.from("[data-role-bar]", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 1.1,
+        stagger: 0.08,
+        delay: 0.3,
+        ease: "power3.out",
         scrollTrigger: { trigger: "[data-photo]", start: "top 78%" },
+      });
+
+      // Diagonal light sweep across the whole panel, looping
+      gsap.to("[data-sweep]", {
+        xPercent: 220,
+        duration: 3.2,
+        ease: "power1.inOut",
+        repeat: -1,
+        repeatDelay: 2.2,
+      });
+
+      // Floating plus icons drifting
+      gsap.utils.toArray<HTMLElement>("[data-plus]").forEach((el, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -12 : 12,
+          rotate: 90,
+          duration: 3 + i * 0.4,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+      });
+
+      // Corner brackets pulse
+      gsap.to("[data-corner]", {
+        opacity: 0.3,
+        duration: 1.4,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
       });
 
       gsap.from("[data-socials] > *", {
@@ -110,6 +168,14 @@ export default function WhyChooseUs() {
         duration: 0.8,
         ease: "power3.out",
         scrollTrigger: { trigger: "[data-bottom-card]", start: "top 85%" },
+      });
+
+      // Fact card numeral glow pulse ring
+      gsap.to("[data-fact-ring]", {
+        rotate: 360,
+        duration: 30,
+        ease: "none",
+        repeat: -1,
       });
     }, sectionRef);
 
@@ -173,30 +239,132 @@ export default function WhyChooseUs() {
 
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14">
-          {/* Left — Team photo with overlay effects */}
-          <div className="group relative rounded-3xl overflow-hidden aspect-[4/5] lg:aspect-auto lg:min-h-[560px] border border-white/[0.06]">
-            <Image
-              src="/team-photo.png"
-              alt="Our creative team collaborating"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-            {/* Gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/30 to-transparent" />
+          {/* Left — Role collage, replaces team photo */}
+          <div
+            data-photo
+            className="group relative rounded-3xl aspect-[4/5] lg:aspect-auto lg:min-h-[560px] border border-white/[0.06] p-5"
+            style={{
+              background:
+                "radial-gradient(120% 100% at 100% 0%, rgba(204,255,0,0.06) 0%, transparent 55%), radial-gradient(100% 80% at 0% 100%, rgba(120,80,255,0.05) 0%, transparent 55%), #0a0a0a",
+            }}
+          >
+            {/* Inner clipped wrapper — holds everything that must stay inside the
+                rounded card bounds (texture, sweep, corners, collage, overlays).
+                The floating badge below sits OUTSIDE this wrapper so it can
+                peek past the edge without being clipped. */}
+            <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+              {/* faint grid texture */}
+              <div
+                className="absolute inset-0 opacity-[0.05]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+                  backgroundSize: "26px 26px",
+                }}
+              />
 
-            {/* Floating badge */}
-            <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
-              <div className="bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl px-5 py-3 flex items-center gap-3">
+              {/* Diagonal light sweep */}
+              <div
+                data-sweep
+                className="absolute -inset-y-10 -left-1/3 w-1/3 rotate-12"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+                  transform: "translateX(-100%)",
+                }}
+              />
+
+              {/* Gradient overlays for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-40" />
+            </div>
+
+            {/* Viewfinder corner brackets */}
+            {[
+              "top-4 left-4 border-t border-l",
+              "top-4 right-4 border-t border-r",
+              "bottom-4 left-4 border-b border-l",
+              "bottom-4 right-4 border-b border-r",
+            ].map((pos) => (
+              <div
+                key={pos}
+                data-corner
+                className={`absolute ${pos} w-5 h-5 border-[#CCFF00]/50 pointer-events-none`}
+              />
+            ))}
+
+            {/* Floating plus accents */}
+            <Plus data-plus className="absolute top-16 right-16 w-4 h-4 text-white/20 pointer-events-none" />
+            <Plus data-plus className="absolute bottom-24 left-10 w-3 h-3 text-[#CCFF00]/30 pointer-events-none" />
+            <Plus data-plus className="absolute top-1/2 left-6 w-3 h-3 text-white/15 pointer-events-none" />
+
+            {/* Index tag */}
+            <span className="absolute top-5 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-[0.25em] text-gray-500 uppercase pointer-events-none">
+              Team / 06 Disciplines
+            </span>
+
+            {/* Role collage grid */}
+            <div className="relative grid grid-cols-3 grid-rows-3 gap-3 h-full pt-8">
+              {roles.map((role, i) => {
+                const Icon = role.icon;
+                return (
+                  <div
+                    key={role.label}
+                    data-role-card
+                    data-rotate={role.rotate}
+                    className={`${role.span} rounded-2xl border border-white/10 bg-gradient-to-br ${role.gradient} flex flex-col justify-between p-4 relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-all duration-500 hover:!rotate-0 hover:scale-[1.04] hover:z-20 cursor-default`}
+                  >
+                    {/* diagonal stripe texture */}
+                    <div
+                      className="absolute inset-0 opacity-[0.12] mix-blend-overlay pointer-events-none"
+                      style={{
+                        backgroundImage:
+                          "repeating-linear-gradient(45deg, rgba(255,255,255,0.5) 0px, rgba(255,255,255,0.5) 1px, transparent 1px, transparent 10px)",
+                      }}
+                    />
+                    {/* glow blob */}
+                    <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-black/20 blur-2xl pointer-events-none" />
+
+                    {/* top row: icon + index */}
+                    <div className="relative flex items-start justify-between">
+                      <div className="w-8 h-8 rounded-lg bg-black/25 backdrop-blur-sm border border-white/15 flex items-center justify-center">
+                        <Icon className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-[10px] font-mono text-white/50">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    {/* bottom: initials, label, skill bar */}
+                    <div className="relative">
+                      <span className="block text-2xl font-bold text-white drop-shadow-sm">{role.initials}</span>
+                      <span className="block text-xs uppercase tracking-wider text-white/70 mt-0.5">{role.label}</span>
+                      <div className="h-[3px] w-full bg-black/25 rounded-full mt-2.5 overflow-hidden">
+                        <div
+                          data-role-bar
+                          className="h-full rounded-full bg-white/80"
+                          style={{ width: `${role.percent}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Floating badge — a sticker peeking off the bottom edge.
+                Lives outside the overflow-hidden wrapper above, and z-30
+                keeps it above the collage grid, so it renders fully instead
+                of being clipped or squashed against the PM tile. */}
+            <div className="absolute -bottom-5 right-8 z-30">
+              <div className="bg-black/80 backdrop-blur-xl border border-white/15 rounded-2xl px-5 py-3 flex items-center gap-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 <Sparkles className="w-4 h-4 text-[#CCFF00]" />
-                <span className="text-sm font-medium text-white/90">Creative Team</span>
+                <span className="text-sm font-medium text-white/90 whitespace-nowrap">Creative Team</span>
               </div>
             </div>
           </div>
 
           {/* Right — Content */}
-          <div className="flex flex-col justify-between gap-8">
+          <div data-right className="flex flex-col justify-between gap-8">
             {/* Description text */}
             <div>
               <p className="text-xl sm:text-2xl md:text-[1.75rem] leading-[1.5] tracking-[-0.01em]">
@@ -240,6 +408,7 @@ export default function WhyChooseUs() {
               {/* Trusted Partner card — glassmorphism */}
               <div
                 ref={counter400.ref}
+                data-bottom-card
                 className="group bg-white/[0.03] border border-white/[0.07] rounded-3xl p-7 backdrop-blur-md hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-500 hover:shadow-[0_8px_40px_rgba(204,255,0,0.04)]"
               >
                 <p className="text-5xl font-bold text-white mb-1 tabular-nums">
@@ -266,19 +435,42 @@ export default function WhyChooseUs() {
                 </button>
               </div>
 
-              {/* Ezando Fact card */}
+              {/* Ezando Fact card — replaces workspace photo with abstract gradient */}
               <div
                 ref={counter230.ref}
+                data-bottom-card
                 className="group relative rounded-3xl overflow-hidden min-h-[300px] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500"
+                style={{
+                  background:
+                    "radial-gradient(140% 120% at 20% 0%, rgba(204,255,0,0.12) 0%, transparent 50%), radial-gradient(120% 100% at 100% 100%, rgba(120,80,255,0.1) 0%, transparent 55%), #0a0a0a",
+                }}
               >
-                <Image
-                  src="/workspace-photo.png"
-                  alt="Creative workspace"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 640px) 100vw, 25vw"
+                {/* faint grid texture */}
+                <div
+                  className="absolute inset-0 opacity-[0.05] pointer-events-none"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+                    backgroundSize: "22px 22px",
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+
+                {/* decorative rotating ring */}
+                <svg
+                  data-fact-ring
+                  viewBox="0 0 200 200"
+                  className="absolute -right-10 -top-10 w-48 h-48 opacity-40 pointer-events-none"
+                >
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="90"
+                    fill="none"
+                    stroke="rgba(204,255,0,0.3)"
+                    strokeWidth="1"
+                    strokeDasharray="1 10"
+                  />
+                </svg>
 
                 {/* Card header */}
                 <div className="absolute top-5 left-5 right-5 flex items-center justify-between">

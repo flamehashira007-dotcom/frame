@@ -54,6 +54,24 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes playhead {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(40px); }
+}
+
+@keyframes orbit-0 {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes orbit-1 {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+@keyframes orbit-2 {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
