@@ -65,7 +65,7 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 border-b"
       style={{ borderColor: "rgba(255,255,255,0)" }}
     >
-      <div className="flex items-center justify-between  py-6 max-w-7xl mx-auto w-full">
+      <div className="flex items-center justify-between px-6 py-6 max-w-7xl mx-auto w-full">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0" aria-label="Ezando home">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none">

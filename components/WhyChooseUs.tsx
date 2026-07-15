@@ -151,23 +151,36 @@ export default function WhyChooseUs() {
         scrollTrigger: { trigger: "[data-socials]", start: "top 85%" },
       });
 
-      gsap.from("[data-right] > *", {
+      // Description/stats block — animated independently from the bottom cards
+      // (previously this used "[data-right] > *", which also matched the bottom
+      // cards wrapper and stacked a second, conflicting opacity animation on top
+      // of the per-card animation below — the root cause of the mobile bug)
+      gsap.from("[data-fade-block]", {
         x: 60,
         opacity: 0,
-        stagger: 0.15,
         duration: 0.9,
         ease: "power3.out",
         scrollTrigger: { trigger: "[data-right]", start: "top 75%" },
       });
 
-      gsap.from("[data-bottom-card]", {
-        y: 50,
-        opacity: 0,
-        scale: 0.95,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: { trigger: "[data-bottom-card]", start: "top 85%" },
+      // Bottom cards — each card gets its OWN ScrollTrigger instance keyed to
+      // its own DOM node. Previously a single tween targeted the two-element
+      // "[data-bottom-card]" selector while also using that same selector as
+      // the trigger — GSAP silently used only the first matched element to
+      // compute the trigger position. On mobile the grid collapses from
+      // sm:grid-cols-2 to grid-cols-1, so the second card shifts far below
+      // where the trigger was calculated and its "start" point never fires,
+      // leaving it stuck at opacity: 0 permanently.
+      gsap.utils.toArray<HTMLElement>("[data-bottom-card]").forEach((card, i) => {
+        gsap.from(card, {
+          y: 50,
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.8,
+          delay: i * 0.15,
+          ease: "power3.out",
+          scrollTrigger: { trigger: card, start: "top 90%" },
+        });
       });
 
       // Fact card numeral glow pulse ring
@@ -179,7 +192,20 @@ export default function WhyChooseUs() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Recalculate all ScrollTrigger start/end positions once fonts and the
+    // full page (images, layout) have actually finished loading. Without
+    // this, triggers computed during initial mount/hydration can go stale
+    // if anything shifts layout height afterward (webfonts swapping in,
+    // images loading, mobile viewport/address-bar resizes, etc.), which is
+    // the same class of issue that was hiding the last card on mobile.
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh);
+    document.fonts?.ready?.then(refresh);
+
+    return () => {
+      window.removeEventListener("load", refresh);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -365,8 +391,9 @@ export default function WhyChooseUs() {
 
           {/* Right — Content */}
           <div data-right className="flex flex-col justify-between gap-8">
-            {/* Description text */}
-            <div>
+            {/* Description text + stats — wrapped in data-fade-block so it's
+                the only thing the "[data-right] > *"-style animation targets */}
+            <div data-fade-block>
               <p className="text-xl sm:text-2xl md:text-[1.75rem] leading-[1.5] tracking-[-0.01em]">
                 <span className="text-white font-medium">At Ezando® Studio, we bring together designers, strategists,</span>{" "}
                 <span className="text-gray-500">and makers to craft bold, thoughtful digital experiences made with care and curiosity.</span>
