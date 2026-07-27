@@ -8,7 +8,7 @@ import ContactFAQ from "@/components/contact/ContactFAQ";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Contact — Ezando® Studio",
+  title: "Contact — Frameonix® Studio",
   description:
     "Tell us what's not working. We reply within 24 hours and the first call includes a free audit.",
 };
@@ -21,7 +21,7 @@ export default function ContactPage() {
       <Navbar />
       <ContactHero />
       <div className="relative bg-[#050505]">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pb-28">
+        <div className="max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pb-28">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-stretch">
             <div className="lg:col-span-3">
               <ContactForm />

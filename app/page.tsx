@@ -16,7 +16,7 @@ export default function Home() {
       <ScrollProgress />
       <Navbar />
 
-      <section className="relative min-h-screen bg-[#050505] text-white overflow-hidden flex flex-col">
+      <section className="relative bg-[#050505] text-white flex flex-col">
         <GenerativeBackground />
         <HeroSection />
       </section>

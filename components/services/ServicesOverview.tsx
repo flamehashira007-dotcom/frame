@@ -12,7 +12,7 @@ const pillars = [
   {
     k: "02",
     t: "One team, one system",
-    d: "Brand, product, and growth share a token set and a vocabulary.",
+    d: "Design and development share a token set and a vocabulary — no handoff gaps.",
   },
   {
     k: "03",
@@ -114,11 +114,11 @@ export default function ServicesOverview() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-24 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-24 overflow-hidden"
     >
       <div className="absolute top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-6 md:px-12 lg:px-16 w-full">
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -176,10 +176,10 @@ export default function ServicesOverview() {
         />
 
         <div data-ov-stats className="grid grid-cols-2 md:grid-cols-4 gap-10">
-          <Stat end={230} suffix="+" label="Projects launched" />
-          <Stat end={400} suffix="+" label="Trusted partners" />
-          <Stat end={12} suffix="" label="Countries served" />
-          <Stat end={98} suffix="%" label="Client retention" />
+          <Stat end={15} suffix="+" label="Projects delivered" />
+          <Stat end={67} suffix="%" label="Keyword ranking boost" />
+          <Stat end={6} suffix="" label="Step process" />
+          <Stat end={9} suffix="+" label="Tools & technologies" />
         </div>
       </div>
     </section>

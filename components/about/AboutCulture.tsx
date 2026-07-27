@@ -4,13 +4,13 @@ import { useEffect, useRef } from "react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const rowA = [
-  "Async by default", "Friday demos", "No standups", "Four timezones",
-  "Rollover hours", "Open salary bands", "Books on the studio",
+  "Async by default", "No account layer", "Direct to the makers", "Agile process",
+  "In-house dev & design", "Transparent timelines", "Cross-browser QA",
 ];
 
 const rowB = [
-  "One design system", "Ship weekly", "Argue in public", "Document everything",
-  "No overtime culture", "Sabbatical at 5 years", "Conference budget",
+  "One design system", "Ship, don't just design", "Document everything", "React & Next.js",
+  "Figma to production", "Testing before launch", "Support after go-live",
 ];
 
 function Strip({ items, reverse }: { items: string[]; reverse?: boolean }) {
@@ -74,8 +74,8 @@ export default function AboutCulture() {
     >
       <div className="absolute top-10 right-[15%] w-[500px] h-[500px] rounded-full bg-violet-500/[0.02] blur-[150px] pointer-events-none" />
 
-      <div className="px-6 md:px-12 lg:px-20 mb-14">
-        <div className="max-w-7xl mx-auto text-center">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-14">
+        <div className="max-w-[1536px] mx-auto text-center">
           <div className="inline-flex items-center gap-2.5 mb-8">
             <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
               <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -91,11 +91,11 @@ export default function AboutCulture() {
             style={{ opacity: 0, transform: "translateY(40px)", filter: "blur(10px)" }}
           >
             <span className="bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-transparent">
-              The culture isn&apos;t a poster.
+              The process isn&apos;t a poster.
             </span>
             <br />
             <span className="bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent">
-              It&apos;s the calendar.
+              It&apos;s how every project runs.
             </span>
           </h2>
         </div>

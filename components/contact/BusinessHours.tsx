@@ -5,11 +5,11 @@ import { Clock, Video, Phone, Calendar, ArrowRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const weekDays = [
-  { day: "Monday", hours: "9:00 AM - 6:00 PM", isOpen: true },
-  { day: "Tuesday", hours: "9:00 AM - 6:00 PM", isOpen: true },
-  { day: "Wednesday", hours: "9:00 AM - 6:00 PM", isOpen: true },
-  { day: "Thursday", hours: "9:00 AM - 6:00 PM", isOpen: true },
-  { day: "Friday", hours: "9:00 AM - 6:00 PM", isOpen: true },
+  { day: "Monday", hours: "10:00 AM - 7:00 PM", isOpen: true },
+  { day: "Tuesday", hours: "10:00 AM - 7:00 PM", isOpen: true },
+  { day: "Wednesday", hours: "10:00 AM - 7:00 PM", isOpen: true },
+  { day: "Thursday", hours: "10:00 AM - 7:00 PM", isOpen: true },
+  { day: "Friday", hours: "10:00 AM - 7:00 PM", isOpen: true },
   { day: "Saturday", hours: "By Appointment", isOpen: true, isLimited: true },
   { day: "Sunday", hours: "Closed", isOpen: false },
 ];
@@ -91,10 +91,10 @@ export default function BusinessHours() {
   const adjustedToday = today === 0 ? 6 : today - 1; // Convert to 0-6 (Mon-Sun)
 
   return (
-    <section ref={rootRef} className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section ref={rootRef} className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden">
       <div className="absolute bottom-20 left-[10%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         <div className="flex items-center gap-2.5 mb-16">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />

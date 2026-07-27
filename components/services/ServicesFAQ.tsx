@@ -7,7 +7,7 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 const faqs = [
   {
     q: "Do I have to buy everything at once?",
-    a: "No. Most clients start with one discipline — usually branding or a website — and add channels once there's something worth promoting. Bundling is cheaper, but it's not a condition.",
+    a: "No. Most clients start with one discipline — usually a website or a product design engagement — and add services once there's something worth building on. Bundling is cheaper, but it's not a condition.",
   },
   {
     q: "How fast can you start?",
@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: "What happens after launch?",
-    a: "Thirty days of bug support is included on every build. After that it's either a retainer, a quarterly check-in, or nothing at all — your call. We don't do auto-renewing traps.",
+    a: "Ongoing maintenance and support is included as part of every build. After the initial window it's either a retainer, a quarterly check-in, or nothing at all — your call. We don't do auto-renewing traps.",
   },
 ];
 
@@ -166,7 +166,7 @@ export default function ServicesFAQ() {
     <section
       id="faqs"
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-20 right-1/4 w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.02] blur-[160px] pointer-events-none" />
 

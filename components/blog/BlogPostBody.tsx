@@ -37,7 +37,7 @@ export default function BlogPostBody({ body, author }: BlogPostBodyProps) {
   }, []);
 
   return (
-    <div ref={rootRef} className="relative bg-[#050505] text-white px-4 sm:px-6 md:px-12 lg:px-20 pb-16 md:pb-20">
+    <div ref={rootRef} className="relative bg-[#050505] text-white px-4 sm:px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pb-16 md:pb-20">
       <div className="max-w-3xl mx-auto">
         <div data-bp-block>
           <PortableText value={body} components={portableTextComponents} />

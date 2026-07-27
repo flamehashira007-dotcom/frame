@@ -10,7 +10,7 @@ import PricingFAQ from "@/components/pricing/PricingFAQ";
 import PricingCTA from "@/components/pricing/PricingCTA";
 
 export const metadata = {
-  title: "Pricing — Ezando® Studio",
+  title: "Pricing — Frameonix® Studio",
   description:
     "Transparent pricing for branding, design, web development, SEO, and growth. Four plans — pick the scope that matches your stage.",
 };

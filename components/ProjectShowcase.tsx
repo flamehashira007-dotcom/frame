@@ -3,34 +3,34 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ArrowRight, Layers, Sparkles } from "lucide-react";
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
 const projects = [
   {
-    id: "neon-frame",
-    icon: Layers,
-    label: "Product",
+    id: "marketing-portfolio",
+    icon: Sparkles,
+    label: "Marketing",
     number: "01",
     year: "2025",
-    title: "Neon Frame System.",
+    title: "Marketing Portfolio.",
     body:
-      "A component and motion system built for speed — tokens, variants, and animation primitives that scale across a whole product line.",
-    tags: ["Design System", "Motion", "Tokens", "Dev Handoff"],
+      "Our full marketing and sales deck — who we are, what we do, and how we've helped SaaS and e-commerce brands grow.",
+    tags: ["Brand Identity", "Case Studies", "Services", "Process"],
     accent: "#CCFF00",
-    href: "/work/neon-frame-system",
+    href: "/Frameonix_Marketing_Portfolio.pdf",
   },
   {
-    id: "music-os",
-    icon: Sparkles,
-    label: "AI Product",
+    id: "web-portfolio",
+    icon: Layers,
+    label: "Web",
     number: "02",
-    year: "2024",
-    title: "Music OS AI.",
+    year: "2025",
+    title: "Web Portfolio.",
     body:
-      "An AI-native listening interface, from early concept through to a shipped product — including the parts that didn't work the first time.",
-    tags: ["Product Design", "AI/UX", "Prototyping", "Web App"],
+      "A closer look at our web design and development work — UI/UX, front-end builds, and the tech stack behind them.",
+    tags: ["Web Design", "Web Development", "UI/UX", "Tech Stack"],
     accent: "#a78bfa",
-    href: "/work/music-os-ai",
+    href: "/Frameonix_Web_Portfolio.pdf",
   },
 ];
 
@@ -56,19 +56,33 @@ export default function ProjectShowcase() {
       });
     }, rootRef);
 
-    return () => ctx.revert();
+    // On reload, the browser can restore scroll position (or images/fonts can
+    // shift layout) before ScrollTrigger's start points are computed. If the
+    // restored scroll position is already past "top 92%" for a card, the
+    // trigger never fires and the card stays stuck at the initial opacity: 0 /
+    // translateY(40) inline style forever. Refreshing after load/fonts
+    // recalculates trigger positions against the current scroll position and
+    // fires any that should already be active.
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh);
+    document.fonts?.ready?.then(refresh);
+
+    return () => {
+      window.removeEventListener("load", refresh);
+      ctx.revert();
+    };
   }, []);
 
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-32 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white py-32 overflow-hidden border-t border-white/[0.06]"
     >
       {/* Decorative blurs */}
       <div className="absolute top-32 right-0 w-[500px] h-[500px] rounded-full bg-violet-500/[0.02] blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/[0.01] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         {/* ── Header ── */}
         <div className="mb-16">
           <div className="flex items-center gap-2.5 mb-8">
@@ -203,9 +217,10 @@ export default function ProjectShowcase() {
                     <span>{p.year}</span>
                   </div>
 
-                  {/* Primary CTA */}
+                  {/* Primary CTA — downloads the PDF from /public instead of navigating */}
                   <a
                     href={p.href}
+                    download
                     className="group/btn flex items-center justify-center gap-3 px-7 py-4 rounded-full font-semibold text-sm transition-all duration-300 w-full"
                     style={{
                       background: `linear-gradient(135deg, ${p.accent}18, rgba(255,255,255,0.04))`,
@@ -223,16 +238,17 @@ export default function ProjectShowcase() {
                       e.currentTarget.style.boxShadow = "none";
                     }}
                   >
-                    View the project
+                    View PDF
                     <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
                   </a>
 
-                  {/* Secondary link */}
+                  {/* Secondary link — also a direct PDF download */}
                   <a
                     href={p.href}
+                    download
                     className="text-xs text-gray-500 hover:text-gray-300 transition-colors text-center mt-4"
                   >
-                    or read the case study
+                    or download the case study
                   </a>
                 </div>
               </div>

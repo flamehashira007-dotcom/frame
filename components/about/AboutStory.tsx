@@ -5,24 +5,24 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const paras = [
   {
-    lead: "It started as a complaint.",
-    body: "Three of us were freelancing for agencies that sold strategy decks and delivered stock templates. The gap between the pitch and the product was so wide you could drive a truck through it. So we stopped complaining and opened a studio.",
+    lead: "It started with a gap.",
+    body: "Too many studios sell a strategy deck and deliver a stock template. We wanted the pitch and the product to actually match — so we built a studio around closing that gap, not widening it.",
   },
   {
-    lead: "The rule was simple:",
-    body: "whoever sells the work does the work. No account layer, no handoff to a junior nobody mentioned. That rule cost us some big contracts early on. It also means the people you meet on the first call are still on the project at launch.",
+    lead: "The rule is simple:",
+    body: "the people who design it are the people who build it. No layer of account managers translating between you and the makers — just a direct line from brief to shipped product.",
   },
   {
-    lead: "Ten years later, that's still the whole model.",
-    body: "We stayed small on purpose. Twelve people, one design system, one set of standards. We turn down more work than we take — not out of arrogance, but because the alternative is doing it badly.",
+    lead: "That's still the whole model.",
+    body: "One design system, one set of standards, applied the same way on every project — from a SaaS dashboard to an e-commerce storefront. We'd rather do fewer projects well than a lot of them badly.",
   },
 ];
 
 const stats = [
-  { value: "10", label: "years running" },
-  { value: "12", label: "people, total" },
+  { value: "15+", label: "projects delivered" },
+  { value: "6", label: "step process" },
+  { value: "9+", label: "tools & technologies" },
   { value: "1", label: "design system" },
-  { value: "0", label: "account managers" },
 ];
 
 export default function AboutStory() {
@@ -50,7 +50,7 @@ export default function AboutStory() {
       if (numEl) {
         const counter = { val: 0 };
         gsap.to(counter, {
-          val: 10,
+          val: 15,
           duration: 1.6,
           ease: "power2.out",
           scrollTrigger: { trigger: "[data-st-panel]", start: "top 80%", once: true },
@@ -119,12 +119,12 @@ export default function AboutStory() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-20 left-[10%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 right-[5%] w-[400px] h-[400px] rounded-full bg-[#CCFF00]/[0.02] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         <div className="flex items-center gap-2.5 mb-16">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -184,10 +184,10 @@ export default function AboutStory() {
                     >
                       0
                     </span>
-                    <span className="text-2xl md:text-3xl font-bold text-[#CCFF00] mt-2">yrs</span>
+                    <span className="text-2xl md:text-3xl font-bold text-[#CCFF00] mt-2">+</span>
                   </p>
                   <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mt-2">
-                    Same rule, same people
+                    Projects delivered, same process every time
                   </p>
                 </div>
               </div>

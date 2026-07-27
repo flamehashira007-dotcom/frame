@@ -45,7 +45,7 @@ export default function ContactHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-40 md:pt-48 pb-20 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-40 md:pt-48 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div
         data-ch-bloom
@@ -72,7 +72,7 @@ export default function ContactHero() {
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
           </span>
           <span className="text-xs text-gray-300 tracking-widest uppercase font-medium">
-            2 slots open for Q3
+            Available for new projects
           </span>
         </div>
 
@@ -81,12 +81,12 @@ export default function ContactHero() {
           style={{ perspective: 800 }}
         >
           {["Let's", "fix"].map((w) => (
-            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-1">
               <span data-ch-word className="inline-block">{w}</span>
             </span>
           ))}
           <br />
-          <span className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+          <span className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-1">
             <span
               data-ch-word
               className="inline-block italic bg-gradient-to-r from-[#CCFF00] via-white to-[#CCFF00] bg-clip-text text-transparent"
@@ -94,14 +94,14 @@ export default function ContactHero() {
               what&apos;s
             </span>
           </span>
-          <span className="inline-block overflow-hidden align-bottom">
+          <span className="inline-block overflow-hidden align-bottom pb-1">
             <span data-ch-word className="inline-block italic">broken.</span>
           </span>
         </h1>
 
         <p data-ch-sub className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
           No brief required. Tell us what&apos;s not working and we&apos;ll tell you
-          which of the thirteen services actually fixes it.
+          which of our six services actually fixes it.
         </p>
 
         <div
@@ -114,7 +114,7 @@ export default function ContactHero() {
           </span>
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#CCFF00]/70" />
-            Free audit on the first call
+            Free consultation on the first call
           </span>
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#CCFF00]/70" />

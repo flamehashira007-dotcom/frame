@@ -3,13 +3,13 @@
 import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
-const milestones = [
-  { year: "2016", title: "Three people, one rule", body: "Founded in a co-working space in Ahmedabad with a single principle: whoever sells the work does the work." },
-  { year: "2018", title: "First system, not a site", body: "Shipped our first full design system for a fintech client. It's still in production. We stopped selling one-off pages." },
-  { year: "2020", title: "Went remote-first", body: "Four timezones, async by default. Output went up. So did the quality of the arguments." },
-  { year: "2022", title: "Added engineering", body: "Design that can't ship is a mood board. We brought build in-house so nothing gets lost in handover." },
-  { year: "2024", title: "Growth channels", body: "Clients kept asking who'd promote the thing we just built. So we learned to do that properly too." },
-  { year: "2026", title: "Still twelve people", body: "We've turned down more work than we've taken. That's the plan, not an accident." },
+const steps = [
+  { number: "01", title: "Discovery & Research", body: "We start by understanding your goals, audience, and competitive landscape before a single pixel gets placed." },
+  { number: "02", title: "Ideation & Wireframing", body: "Structure and flow come first — low-fidelity wireframes map out how the product actually works." },
+  { number: "03", title: "UI/UX Design", body: "User-centric interfaces, built in Figma, focused on clarity and measurable business outcomes." },
+  { number: "04", title: "Development & Integration", body: "React, Next.js, TypeScript, and the right backend — built to match the design exactly, not approximate it." },
+  { number: "05", title: "Testing & QA", body: "Cross-browser, cross-device checks before anything ships, so launch day has no surprises." },
+  { number: "06", title: "Launch & Support", body: "We stay on after go-live for maintenance and support, not just a handover email." },
 ];
 
 export default function AboutTimeline() {
@@ -52,24 +52,24 @@ export default function AboutTimeline() {
     >
       <div className="absolute top-20 left-1/3 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/[0.015] blur-[170px] pointer-events-none" />
 
-      <div className="px-6 md:px-12 lg:px-20 mb-14">
-        <div className="max-w-7xl mx-auto">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-14">
+        <div className="max-w-[1536px] mx-auto">
           <div className="flex items-center gap-2.5 mb-8">
             <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
               <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
             </span>
             <span className="text-sm text-gray-400 tracking-widest uppercase font-medium">
-              How we got here
+              How we work
             </span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl md:text-[4rem] font-bold tracking-tight leading-[1.02] italic max-w-2xl">
             <span className="bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-transparent">
-              Ten years,
+              One process,
             </span>
             <br />
             <span className="bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent">
-              six decisions.
+              six steps.
             </span>
           </h2>
         </div>
@@ -84,12 +84,12 @@ export default function AboutTimeline() {
           ref={trackRef}
           className="flex gap-6 pl-6 md:pl-12 lg:pl-20 w-max will-change-transform"
         >
-          {milestones.map((m, i) => (
-            <div key={m.year} className="w-[320px] md:w-[380px] shrink-0">
-              {/* Year + node */}
+          {steps.map((s, i) => (
+            <div key={s.number} className="w-[320px] md:w-[380px] shrink-0">
+              {/* Number + node */}
               <div className="flex items-center gap-4 mb-8 h-[60px]">
                 <span className="text-4xl md:text-5xl font-bold tracking-tighter text-[#CCFF00]">
-                  {m.year}
+                  {s.number}
                 </span>
                 <span className="flex-1 h-px bg-gradient-to-r from-[#CCFF00]/50 to-transparent" />
               </div>
@@ -106,12 +106,12 @@ export default function AboutTimeline() {
 
                 <div className="relative">
                   <span className="text-xs font-mono text-gray-500 block mb-3">
-                    {String(i + 1).padStart(2, "0")} / {String(milestones.length).padStart(2, "0")}
+                    Step {String(i + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
                   </span>
                   <h3 className="text-xl font-semibold tracking-tight mb-3 group-hover:text-[#CCFF00] transition-colors duration-300">
-                    {m.title}
+                    {s.title}
                   </h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{m.body}</p>
+                  <p className="text-sm text-gray-400 leading-relaxed">{s.body}</p>
                 </div>
               </div>
             </div>

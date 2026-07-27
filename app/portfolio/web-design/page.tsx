@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Web & Design Portfolio — Ezando® Studio",
+  title: "Web & Design Portfolio — Frameonix® Studio",
   description: "Branding, UI/UX, and web design work.",
 };
 
@@ -13,7 +13,7 @@ export default function WebDesignDeckPage() {
     <main>
       <Navbar />
 
-      <section className="relative bg-[#050505] text-white min-h-screen pt-32 md:pt-36 pb-20 px-6 md:px-12 lg:px-20 overflow-hidden">
+      <section className="relative bg-[#050505] text-white min-h-screen pt-32 md:pt-36 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-violet-500/[0.025] blur-[160px] pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto">

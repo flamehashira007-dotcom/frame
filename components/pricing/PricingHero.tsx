@@ -91,7 +91,7 @@ export default function PricingHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white min-h-[80vh] flex flex-col justify-center pt-40 md:pt-48 pb-20 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white min-h-[80vh] flex flex-col justify-center pt-40 md:pt-48 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       {/* Ambient */}
       <div

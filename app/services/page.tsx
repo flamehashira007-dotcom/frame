@@ -12,7 +12,7 @@ import ServicesCTA from "@/components/services/ServicesCTA";
 import ScrollRefresh from "@/components/ScrollRefresh";
 
 export const metadata = {
-  title: "Services — Ezando® Studio",
+  title: "Services — Frameonix® Studio",
   description:
     "Branding, design, web development, SEO, and performance marketing — one studio, one system.",
 };

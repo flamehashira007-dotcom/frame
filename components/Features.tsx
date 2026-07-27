@@ -177,11 +177,11 @@ function ScalabilityCurve() {
 function IntegrationIcons() {
   const icons = [
     { name: "Figma", color: "from-red-500 via-purple-500 to-green-400", symbol: "F" },
-    { name: "Notion", color: "from-gray-200 to-gray-400", symbol: "N" },
-    { name: "Slack", color: "from-[#CCFF00] to-emerald-500", symbol: "#" },
-    { name: "X", color: "from-white to-gray-400", symbol: "𝕏" },
-    { name: "Asana", color: "from-orange-400 to-pink-500", symbol: "✳" },
-    { name: "Linear", color: "from-indigo-400 to-violet-600", symbol: "◆" },
+    { name: "Next.js", color: "from-gray-200 to-gray-400", symbol: "N" },
+    { name: "TypeScript", color: "from-[#CCFF00] to-emerald-500", symbol: "TS" },
+    { name: "TailwindCSS", color: "from-sky-400 to-blue-500", symbol: "TW" },
+    { name: "Webflow", color: "from-blue-500 to-indigo-600", symbol: "W" },
+    { name: "n8n", color: "from-rose-400 to-pink-600", symbol: "n8n" },
   ];
 
   return (
@@ -192,7 +192,7 @@ function IntegrationIcons() {
           className="group/icon w-14 h-14 rounded-2xl bg-gradient-to-br border border-white/[0.08] flex items-center justify-center text-lg font-bold cursor-default hover:scale-110 hover:border-white/20 transition-all duration-300 hover:shadow-lg"
           style={{ animationDelay: `${i * 100}ms` }}
         >
-          <div className={`w-full h-full rounded-2xl bg-gradient-to-br ${icon.color} flex items-center justify-center text-black/80 opacity-80 group-hover/icon:opacity-100 transition-opacity`}>
+          <div className={`w-full h-full rounded-2xl bg-gradient-to-br ${icon.color} flex items-center justify-center text-black/80 opacity-80 group-hover/icon:opacity-100 transition-opacity text-[11px]`}>
             {icon.symbol}
           </div>
         </div>
@@ -207,7 +207,7 @@ function CollabAvatars() {
     { name: "Alex", gradient: "from-cyan-400 to-blue-600", ring: "ring-cyan-400/30" },
     { name: "Sarah", gradient: "from-pink-400 to-rose-600", ring: "ring-pink-400/30" },
     { name: "Maya", gradient: "from-amber-400 to-orange-600", ring: "ring-amber-400/30" },
-    { name: "Eliah", gradient: "from-[#CCFF00] to-emerald-500", ring: "ring-[#CCFF00]/30" },
+    { name: "Dev", gradient: "from-[#CCFF00] to-emerald-500", ring: "ring-[#CCFF00]/30" },
   ];
 
   return (
@@ -229,7 +229,7 @@ function CollabAvatars() {
           <path d="M0 0L16 12L8 12L4 20L0 0Z" />
         </svg>
         <span className="absolute -bottom-1 left-4 bg-[#CCFF00] text-black text-[10px] font-semibold px-2.5 py-1 rounded-full whitespace-nowrap shadow-lg shadow-[#CCFF00]/20">
-          Eliah
+          Live edit
         </span>
       </div>
     </div>
@@ -238,13 +238,13 @@ function CollabAvatars() {
 
 /* ── Feature tags ── */
 const tags = [
-  "Design workshops",
-  "Workshops",
-  "Trend reports",
-  "Asset library",
-  "Rollover hours",
-  "Premium designers",
-  "Multilingual support",
+  "UI/UX Design",
+  "Web Development",
+  "E-commerce Solutions",
+  "SaaS Product Design",
+  "Brand Identity",
+  "Motion Design",
+  "Maintenance & Support",
 ];
 
 /* ════════════════════════════════════════════════
@@ -252,12 +252,12 @@ const tags = [
    ════════════════════════════════════════════════ */
 export default function Features() {
   return (
-    <section id="features" className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section id="features" className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-24 overflow-hidden">
       {/* Decorative blurs */}
       <div className="absolute top-20 left-1/3 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
       <div className="absolute bottom-20 right-1/4 w-[400px] h-[400px] rounded-full bg-emerald-500/[0.02] blur-[120px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         {/* Section header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-6">
@@ -267,9 +267,9 @@ export default function Features() {
             <span className="text-sm text-[#CCFF00] tracking-widest uppercase font-semibold">What you&apos;ll get</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.15] max-w-2xl mx-auto">
-            We resolve problems associated with{" "}
+            We fix what slows down{" "}
             <span className="bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent">
-              creative procedures.
+              modern web builds.
             </span>
           </h2>
         </div>
@@ -287,7 +287,7 @@ export default function Features() {
                 Cost effective solution
               </h3>
               <p className="text-sm text-gray-500 leading-relaxed">
-                Get high-quality design work at a fraction of the cost.
+                Get agency-quality design and development without agency overhead.
               </p>
             </div>
           </div>
@@ -302,7 +302,7 @@ export default function Features() {
                 Tailor–made design
               </h3>
               <p className="text-sm text-gray-500 leading-relaxed">
-                We&apos;ve got the expertise to make your vision a reality.
+                User-centric UI/UX built around your product, not a template.
               </p>
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function Features() {
                 Scalable as you grow
               </h3>
               <p className="text-sm text-gray-500 leading-relaxed">
-                We&apos;re ready to meet your evolving needs.
+                Robust development that keeps pace as your product scales.
               </p>
             </div>
           </div>
@@ -338,7 +338,7 @@ export default function Features() {
                 integration
               </h3>
               <p className="text-sm text-gray-500 mt-3 leading-relaxed max-w-[180px]">
-                Seamlessly connect all your existing apps
+                Built on the tools you already design and ship with.
               </p>
             </div>
             <div className="relative flex-1 flex items-center justify-center">
@@ -357,7 +357,7 @@ export default function Features() {
                 real-time
               </h3>
               <p className="text-sm text-gray-500 mt-3 leading-relaxed max-w-[180px]">
-                Seamlessly connect all your existing apps
+                Agile, transparent feedback loops from kickoff to launch.
               </p>
             </div>
             <div className="relative flex-1 flex items-center justify-center">

@@ -2,35 +2,31 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { Download, FileText, TrendingUp, Monitor } from "lucide-react";
+import { Download, FileText, Palette, Code2 } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const decks = [
   {
     id: "marketing",
-    icon: TrendingUp,
+    icon: Palette,
     label: "Marketing",
-    title: "Campaigns, channels, and the numbers behind them",
+    title: "Who we are, what we do, and the work behind it",
     body:
-      "SEO, paid social, Google Ads, email, and content work — with the results attached. Case-by-case, what we changed and what it moved.",
-    tags: ["SEO", "Paid Social", "Google Ads", "Email", "Content"],
+      "Studio introduction, our services, the tools we build with, our process, and case studies from real client work — start to finish.",
+    tags: ["Introduction", "Services", "Process", "Case Studies"],
     accent: "#CCFF00",
-    file: "/portfolio/marketing.pdf",
-    size: "8.4 MB",
-    pages: "24 pages",
+    file: "/Frameonix_Marketing_Portfolio.pdf",
   },
   {
     id: "web-design",
-    icon: Monitor,
+    icon: Code2,
     label: "Web & Design",
-    title: "Brands, interfaces, and the sites they ship into",
+    title: "A closer look at how we design and build",
     body:
-      "Identity systems, product UI, and marketing sites. Art direction through to production build — including the ones that were hard.",
-    tags: ["Branding", "UI/UX", "Web Design", "Development"],
+      "UI/UX design, front-end builds, and the tech stack behind them — from Figma to production code, with the reasoning in between.",
+    tags: ["UI/UX", "Web Development", "Tech Stack"],
     accent: "#a78bfa",
-    file: "/portfolio/web-design.pdf",
-    size: "12.1 MB",
-    pages: "32 pages",
+    file: "/Frameonix_Web_Portfolio.pdf",
   },
 ];
 
@@ -62,7 +58,7 @@ export default function PortfolioDecks() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-16 pb-32 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-16 pb-32 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute bottom-0 right-[15%] w-[500px] h-[500px] rounded-full bg-violet-500/[0.02] blur-[150px] pointer-events-none" />
 
@@ -164,13 +160,9 @@ export default function PortfolioDecks() {
                       <FileText className="w-3.5 h-3.5" />
                       PDF
                     </span>
-                    <span className="w-1 h-1 rounded-full bg-gray-700" />
-                    <span>{d.pages}</span>
-                    <span className="w-1 h-1 rounded-full bg-gray-700" />
-                    <span>{d.size}</span>
                   </div>
 
-                  {/* Download */}
+                  {/* Download — pulls the real PDF from /public, same as ProjectShowcase */}
                   <a
                     href={d.file}
                     download
@@ -195,7 +187,7 @@ export default function PortfolioDecks() {
                     <Download className="w-4 h-4 group-hover/btn:translate-y-0.5 transition-transform" />
                   </a>
 
-                  {/* Secondary link */}
+                  {/* Secondary link — opens the same PDF in a new tab instead of downloading */}
                   <a
                     href={d.file}
                     target="_blank"

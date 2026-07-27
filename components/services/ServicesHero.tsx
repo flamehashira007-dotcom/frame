@@ -1,20 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, ArrowDown } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { gsap, prefersReducedMotion, isCoarsePointer } from "@/lib/gsap";
 
 const ticker = [
-  "Branding", "Graphic Design", "UI/UX", "Web Design", "Web Development",
-  "SEO", "Social Media", "Google Ads", "Meta Ads", "Content", "Email",
-  "Video Editing", "Motion Graphics", "Automation",
+  "Web Design (UI/UX)", "Web Development", "E-commerce Solutions",
+  "SaaS Product Design", "Brand Identity", "Motion Design", "Maintenance & Support",
 ];
 
 export default function ServicesHero() {
   const rootRef = useRef<HTMLElement>(null);
   const artRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLButtonElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -113,7 +113,7 @@ export default function ServicesHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-40 md:pt-48 pb-16 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-40 md:pt-48 pb-16 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       {/* Ambient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[#CCFF00]/[0.025] blur-[180px] pointer-events-none" />
@@ -139,7 +139,7 @@ export default function ServicesHero() {
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
           </span>
           <span className="text-xs text-gray-400 tracking-widest uppercase font-medium">
-            13 services · one studio
+            6 services · one studio
           </span>
         </div>
 
@@ -148,12 +148,12 @@ export default function ServicesHero() {
           style={{ perspective: 800 }}
         >
           {["Everything", "you", "need"].map((w) => (
-            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-1">
               <span data-sh-word className="inline-block">{w}</span>
             </span>
           ))}
           <br />
-          <span className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+          <span className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-1">
             <span
               data-sh-word
               className="inline-block italic bg-gradient-to-r from-[#CCFF00] via-white to-[#CCFF00] bg-clip-text text-transparent"
@@ -161,24 +161,25 @@ export default function ServicesHero() {
               under one
             </span>
           </span>
-          <span className="inline-block overflow-hidden align-bottom">
+          <span className="inline-block overflow-hidden align-bottom pb-1">
             <span data-sh-word className="inline-block italic">roof.</span>
           </span>
         </h1>
 
         <p data-sh-sub className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Brand, product, web, and growth — designed as one system instead of
-          stitched together from five vendors who never talk to each other.
+          Design, product, and development — designed as one system instead of
+          stitched together from separate vendors who never talk to each other.
         </p>
 
         <div data-sh-actions className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-          <button
+          <Link
             ref={ctaRef}
+            href="/contact"
             className="group/btn flex items-center gap-3 bg-[#CCFF00] hover:bg-[#b8e600] text-black px-8 py-4 rounded-full font-semibold text-base transition-colors shadow-[0_0_40px_rgba(204,255,0,0.25)]"
           >
             Start a project
             <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-          </button>
+          </Link>
           <a
             href="#disciplines"
             className="group/btn2 flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.12] px-8 py-4 rounded-full font-semibold text-base transition-colors backdrop-blur-md"

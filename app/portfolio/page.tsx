@@ -6,7 +6,7 @@ import PortfolioDecks from "@/components/portfolio/PortfolioDecks";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Portfolio — Ezando® Studio",
+  title: "Portfolio — Frameonix® Studio",
   description:
     "Our marketing and web design work, collected into two decks. View or download.",
 };

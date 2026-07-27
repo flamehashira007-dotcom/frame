@@ -5,12 +5,12 @@ import { Globe, ArrowRight, Sparkles, PenTool, Target, Video, Type, Code2, Packa
 import { useEffect, useRef, useState } from "react";
 
 const partnerLogos = [
-  { name: "Thrive", icon: "✦" },
-  { name: "Leafe", icon: "🍃" },
-  { name: "Hues", icon: "◆" },
-  { name: "Zumar Cons.", icon: "◈" },
-  { name: "Crona", icon: "◎" },
-  { name: "Mercury", icon: "⬡" },
+  { name: "SaaS", icon: "✦" },
+  { name: "E-commerce", icon: "🍃" },
+  { name: "Fintech", icon: "◆" },
+  { name: "Productivity", icon: "◈" },
+  { name: "Creative", icon: "◎" },
+  { name: "Analytics", icon: "⬡" },
 ];
 
 const avatars = [
@@ -62,8 +62,8 @@ function useCounter(end: number, duration = 2000) {
 }
 
 export default function WhyChooseUs() {
-  const counter400 = useCounter(400, 2200);
-  const counter230 = useCounter(230, 2000);
+  const counter15 = useCounter(15, 2200);
+  const counter8 = useCounter(8, 2000);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -82,7 +82,6 @@ export default function WhyChooseUs() {
         scrollTrigger: { trigger: "[data-title]", start: "top 80%" },
       });
 
-      // Collage cards reveal — tumble in and settle into their tilt
       gsap.utils.toArray<HTMLElement>("[data-role-card]").forEach((card, i) => {
         const finalRotate = card.dataset.rotate || "0deg";
         gsap.fromTo(
@@ -101,7 +100,6 @@ export default function WhyChooseUs() {
         );
       });
 
-      // Skill bars fill in
       gsap.from("[data-role-bar]", {
         scaleX: 0,
         transformOrigin: "left center",
@@ -112,7 +110,6 @@ export default function WhyChooseUs() {
         scrollTrigger: { trigger: "[data-photo]", start: "top 78%" },
       });
 
-      // Diagonal light sweep across the whole panel, looping
       gsap.to("[data-sweep]", {
         xPercent: 220,
         duration: 3.2,
@@ -121,7 +118,6 @@ export default function WhyChooseUs() {
         repeatDelay: 2.2,
       });
 
-      // Floating plus icons drifting
       gsap.utils.toArray<HTMLElement>("[data-plus]").forEach((el, i) => {
         gsap.to(el, {
           y: i % 2 === 0 ? -12 : 12,
@@ -133,7 +129,6 @@ export default function WhyChooseUs() {
         });
       });
 
-      // Corner brackets pulse
       gsap.to("[data-corner]", {
         opacity: 0.3,
         duration: 1.4,
@@ -151,10 +146,6 @@ export default function WhyChooseUs() {
         scrollTrigger: { trigger: "[data-socials]", start: "top 85%" },
       });
 
-      // Description/stats block — animated independently from the bottom cards
-      // (previously this used "[data-right] > *", which also matched the bottom
-      // cards wrapper and stacked a second, conflicting opacity animation on top
-      // of the per-card animation below — the root cause of the mobile bug)
       gsap.from("[data-fade-block]", {
         x: 60,
         opacity: 0,
@@ -163,14 +154,6 @@ export default function WhyChooseUs() {
         scrollTrigger: { trigger: "[data-right]", start: "top 75%" },
       });
 
-      // Bottom cards — each card gets its OWN ScrollTrigger instance keyed to
-      // its own DOM node. Previously a single tween targeted the two-element
-      // "[data-bottom-card]" selector while also using that same selector as
-      // the trigger — GSAP silently used only the first matched element to
-      // compute the trigger position. On mobile the grid collapses from
-      // sm:grid-cols-2 to grid-cols-1, so the second card shifts far below
-      // where the trigger was calculated and its "start" point never fires,
-      // leaving it stuck at opacity: 0 permanently.
       gsap.utils.toArray<HTMLElement>("[data-bottom-card]").forEach((card, i) => {
         gsap.from(card, {
           y: 50,
@@ -183,7 +166,6 @@ export default function WhyChooseUs() {
         });
       });
 
-      // Fact card numeral glow pulse ring
       gsap.to("[data-fact-ring]", {
         rotate: 360,
         duration: 30,
@@ -192,12 +174,6 @@ export default function WhyChooseUs() {
       });
     }, sectionRef);
 
-    // Recalculate all ScrollTrigger start/end positions once fonts and the
-    // full page (images, layout) have actually finished loading. Without
-    // this, triggers computed during initial mount/hydration can go stale
-    // if anything shifts layout height afterward (webfonts swapping in,
-    // images loading, mobile viewport/address-bar resizes, etc.), which is
-    // the same class of issue that was hiding the last card on mobile.
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
     document.fonts?.ready?.then(refresh);
@@ -209,13 +185,11 @@ export default function WhyChooseUs() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-[#050505] text-white pt-40 md:pt-52 pb-24 px-6 md:px-12 lg:px-20 overflow-hidden">
-      {/* ── Decorative background elements ── */}
+    <section ref={sectionRef} className="relative bg-[#050505] text-white pt-40 md:pt-52 pb-24 overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-[#CCFF00]/[0.02] blur-[150px] pointer-events-none" />
       <div className="absolute top-40 right-0 w-[400px] h-[400px] rounded-full bg-emerald-500/[0.03] blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-violet-500/[0.02] blur-[130px] pointer-events-none" />
 
-      {/* ── Subtle grid overlay ── */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -224,8 +198,7 @@ export default function WhyChooseUs() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto">
-        {/* Section label */}
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         <div className="flex items-center gap-3 mb-8 group">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -233,7 +206,6 @@ export default function WhyChooseUs() {
           <span className="text-sm text-gray-400 tracking-widest uppercase font-medium">Why choose us</span>
         </div>
 
-        {/* Header row */}
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-20">
           <h2 className="text-4xl sm:text-5xl md:text-[4rem] font-semibold tracking-tight leading-[1.05] max-w-2xl mb-10 lg:mb-0">
             <span className="block">Meet The Minds</span>
@@ -242,7 +214,6 @@ export default function WhyChooseUs() {
             </span>
           </h2>
 
-          {/* Social icons */}
           <div className="flex items-center gap-3">
             {[
               { label: "Twitter / X", path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" },
@@ -263,9 +234,7 @@ export default function WhyChooseUs() {
           </div>
         </div>
 
-        {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14">
-          {/* Left — Role collage, replaces team photo */}
           <div
             data-photo
             className="group relative rounded-3xl aspect-[4/5] lg:aspect-auto lg:min-h-[560px] border border-white/[0.06] p-5"
@@ -274,12 +243,7 @@ export default function WhyChooseUs() {
                 "radial-gradient(120% 100% at 100% 0%, rgba(204,255,0,0.06) 0%, transparent 55%), radial-gradient(100% 80% at 0% 100%, rgba(120,80,255,0.05) 0%, transparent 55%), #0a0a0a",
             }}
           >
-            {/* Inner clipped wrapper — holds everything that must stay inside the
-                rounded card bounds (texture, sweep, corners, collage, overlays).
-                The floating badge below sits OUTSIDE this wrapper so it can
-                peek past the edge without being clipped. */}
             <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
-              {/* faint grid texture */}
               <div
                 className="absolute inset-0 opacity-[0.05]"
                 style={{
@@ -288,8 +252,6 @@ export default function WhyChooseUs() {
                   backgroundSize: "26px 26px",
                 }}
               />
-
-              {/* Diagonal light sweep */}
               <div
                 data-sweep
                 className="absolute -inset-y-10 -left-1/3 w-1/3 rotate-12"
@@ -299,12 +261,9 @@ export default function WhyChooseUs() {
                   transform: "translateX(-100%)",
                 }}
               />
-
-              {/* Gradient overlays for depth */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-40" />
             </div>
 
-            {/* Viewfinder corner brackets */}
             {[
               "top-4 left-4 border-t border-l",
               "top-4 right-4 border-t border-r",
@@ -318,17 +277,14 @@ export default function WhyChooseUs() {
               />
             ))}
 
-            {/* Floating plus accents */}
             <Plus data-plus className="absolute top-16 right-16 w-4 h-4 text-white/20 pointer-events-none" />
             <Plus data-plus className="absolute bottom-24 left-10 w-3 h-3 text-[#CCFF00]/30 pointer-events-none" />
             <Plus data-plus className="absolute top-1/2 left-6 w-3 h-3 text-white/15 pointer-events-none" />
 
-            {/* Index tag */}
             <span className="absolute top-5 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-[0.25em] text-gray-500 uppercase pointer-events-none">
               Team / 06 Disciplines
             </span>
 
-            {/* Role collage grid */}
             <div className="relative grid grid-cols-3 grid-rows-3 gap-3 h-full pt-8">
               {roles.map((role, i) => {
                 const Icon = role.icon;
@@ -339,7 +295,6 @@ export default function WhyChooseUs() {
                     data-rotate={role.rotate}
                     className={`${role.span} rounded-2xl border border-white/10 bg-gradient-to-br ${role.gradient} flex flex-col justify-between p-4 relative overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-all duration-500 hover:!rotate-0 hover:scale-[1.04] hover:z-20 cursor-default`}
                   >
-                    {/* diagonal stripe texture */}
                     <div
                       className="absolute inset-0 opacity-[0.12] mix-blend-overlay pointer-events-none"
                       style={{
@@ -347,10 +302,8 @@ export default function WhyChooseUs() {
                           "repeating-linear-gradient(45deg, rgba(255,255,255,0.5) 0px, rgba(255,255,255,0.5) 1px, transparent 1px, transparent 10px)",
                       }}
                     />
-                    {/* glow blob */}
                     <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-black/20 blur-2xl pointer-events-none" />
 
-                    {/* top row: icon + index */}
                     <div className="relative flex items-start justify-between">
                       <div className="w-8 h-8 rounded-lg bg-black/25 backdrop-blur-sm border border-white/15 flex items-center justify-center">
                         <Icon className="w-4 h-4 text-white" />
@@ -360,7 +313,6 @@ export default function WhyChooseUs() {
                       </span>
                     </div>
 
-                    {/* bottom: initials, label, skill bar */}
                     <div className="relative">
                       <span className="block text-2xl font-bold text-white drop-shadow-sm">{role.initials}</span>
                       <span className="block text-xs uppercase tracking-wider text-white/70 mt-0.5">{role.label}</span>
@@ -377,10 +329,6 @@ export default function WhyChooseUs() {
               })}
             </div>
 
-            {/* Floating badge — a sticker peeking off the bottom edge.
-                Lives outside the overflow-hidden wrapper above, and z-30
-                keeps it above the collage grid, so it renders fully instead
-                of being clipped or squashed against the PM tile. */}
             <div className="absolute -bottom-5 right-8 z-30">
               <div className="bg-black/80 backdrop-blur-xl border border-white/15 rounded-2xl px-5 py-3 flex items-center gap-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
                 <Sparkles className="w-4 h-4 text-[#CCFF00]" />
@@ -389,29 +337,24 @@ export default function WhyChooseUs() {
             </div>
           </div>
 
-          {/* Right — Content */}
           <div data-right className="flex flex-col justify-between gap-8">
-            {/* Description text + stats — wrapped in data-fade-block so it's
-                the only thing the "[data-right] > *"-style animation targets */}
             <div data-fade-block>
               <p className="text-xl sm:text-2xl md:text-[1.75rem] leading-[1.5] tracking-[-0.01em]">
-                <span className="text-white font-medium">At Ezando® Studio, we bring together designers, strategists,</span>{" "}
-                <span className="text-gray-500">and makers to craft bold, thoughtful digital experiences made with care and curiosity.</span>
+                <span className="text-white font-medium">At Frameonix Studio, we bring together design, strategy,</span>{" "}
+                <span className="text-gray-500">and engineering to craft bold, thoughtful digital experiences made with care and curiosity.</span>
               </p>
 
-              {/* Stats row */}
               <div className="flex items-center justify-between mt-12 pt-8 border-t border-white/[0.06]">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
                     <Globe className="w-5 h-5 text-[#CCFF00]" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">Over 100 Fields</p>
-                    <p className="text-sm text-gray-500">12 Countries Over World</p>
+                    <p className="text-sm font-semibold text-white">SaaS, E-commerce &amp; Creative</p>
+                    <p className="text-sm text-gray-500">Based in Bangalore, built for the world</p>
                   </div>
                 </div>
 
-                {/* Avatar stack */}
                 <div className="flex items-center">
                   <div className="flex -space-x-2.5">
                     {avatars.map((avatar) => (
@@ -424,26 +367,23 @@ export default function WhyChooseUs() {
                     ))}
                   </div>
                   <div className="w-10 h-10 rounded-full bg-white/[0.06] border-[2.5px] border-[#050505] flex items-center justify-center -ml-2.5 text-xs font-bold text-[#CCFF00]">
-                    12
+                    +5
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Trusted Partner card — glassmorphism */}
               <div
-                ref={counter400.ref}
+                ref={counter8.ref}
                 data-bottom-card
                 className="group bg-white/[0.03] border border-white/[0.07] rounded-3xl p-7 backdrop-blur-md hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-500 hover:shadow-[0_8px_40px_rgba(204,255,0,0.04)]"
               >
                 <p className="text-5xl font-bold text-white mb-1 tabular-nums">
-                  {counter400.count}<span className="text-[#CCFF00]">+</span>
+                  {counter8.count}<span className="text-[#CCFF00]">+</span>
                 </p>
-                <p className="text-sm text-gray-500 mb-7">Trusted Partner</p>
+                <p className="text-sm text-gray-500 mb-7">Featured Case Studies</p>
 
-                {/* Partner logo grid */}
                 <div className="grid grid-cols-3 gap-x-4 gap-y-3 mb-7">
                   {partnerLogos.map((partner) => (
                     <div
@@ -462,9 +402,8 @@ export default function WhyChooseUs() {
                 </button>
               </div>
 
-              {/* Ezando Fact card — replaces workspace photo with abstract gradient */}
               <div
-                ref={counter230.ref}
+                ref={counter15.ref}
                 data-bottom-card
                 className="group relative rounded-3xl overflow-hidden min-h-[300px] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-500"
                 style={{
@@ -472,7 +411,6 @@ export default function WhyChooseUs() {
                     "radial-gradient(140% 120% at 20% 0%, rgba(204,255,0,0.12) 0%, transparent 50%), radial-gradient(120% 100% at 100% 100%, rgba(120,80,255,0.1) 0%, transparent 55%), #0a0a0a",
                 }}
               >
-                {/* faint grid texture */}
                 <div
                   className="absolute inset-0 opacity-[0.05] pointer-events-none"
                   style={{
@@ -482,7 +420,6 @@ export default function WhyChooseUs() {
                   }}
                 />
 
-                {/* decorative rotating ring */}
                 <svg
                   data-fact-ring
                   viewBox="0 0 200 200"
@@ -499,24 +436,22 @@ export default function WhyChooseUs() {
                   />
                 </svg>
 
-                {/* Card header */}
                 <div className="absolute top-5 left-5 right-5 flex items-center justify-between">
                   <span className="text-xs font-medium text-white/90 bg-white/[0.08] backdrop-blur-xl px-4 py-2 rounded-full border border-white/[0.1] shadow-lg">
-                    Ezando Fact
+                    Frameonix Fact
                   </span>
                   <span className="text-xs text-white/40 font-mono">01/04</span>
                 </div>
 
-                {/* Card bottom stat */}
                 <div className="absolute bottom-6 left-6 right-6">
                   <p className="text-5xl font-bold mb-2">
-                    <span className="text-[#CCFF00] drop-shadow-[0_0_20px_rgba(204,255,0,0.3)]">{counter230.count}</span>
+                    <span className="text-[#CCFF00] drop-shadow-[0_0_20px_rgba(204,255,0,0.3)]">{counter15.count}</span>
                     <span className="text-[#CCFF00]/70">+</span>
                   </p>
                   <p className="text-sm text-white/60 leading-snug">
                     Projects successfully launched
                     <br />
-                    worldwide
+                    across SaaS &amp; e-commerce
                   </p>
                 </div>
               </div>

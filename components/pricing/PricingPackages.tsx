@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, Sparkles } from "lucide-react";
+import Link from "next/link";
 import { gsap, prefersReducedMotion, isCoarsePointer } from "@/lib/gsap";
 
 const plans = [
@@ -153,12 +154,12 @@ export default function PricingPackages() {
     <section
       id="plans"
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
       <div className="absolute bottom-40 right-[10%] w-[400px] h-[400px] rounded-full bg-violet-500/[0.02] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-2.5 mb-8">
@@ -324,7 +325,8 @@ export default function PricingPackages() {
                 </div>
 
                 {/* CTA button */}
-                <button
+                <Link
+                  href="/contact"
                   className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-all duration-300 mb-8 ${
                     plan.popular
                       ? "bg-[#CCFF00] hover:bg-[#b8e600] text-black shadow-[0_0_30px_rgba(204,255,0,0.2)]"
@@ -333,7 +335,7 @@ export default function PricingPackages() {
                 >
                   {plan.cta}
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
 
                 {/* Divider */}
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-6" />

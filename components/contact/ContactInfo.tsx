@@ -8,19 +8,19 @@ const channels = [
   {
     icon: Mail,
     label: "Email",
-    value: "hello@ezando.studio",
-    href: "mailto:hello@ezando.studio",
+    value: "help.frameonix@gmail.com",
+    href: "mailto:help.frameonix@gmail.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    value: "+91 96625 94215",
+    href: "tel:+919662594215",
   },
   {
     icon: MapPin,
     label: "Studio",
-    value: "Ahmedabad, Gujarat, India",
+    value: "Bangalore, India",
     href: undefined,
   },
   {
@@ -167,12 +167,6 @@ export default function ContactInfo() {
             Prefer a call over a form? Book a slot directly and skip the
             back-and-forth.
           </p>
-          <a
-            href="/contact#book"
-            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#CCFF00] hover:gap-3 transition-all duration-200"
-          >
-            Book a call →
-          </a>
         </div>
       </div>
     </div>

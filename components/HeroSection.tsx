@@ -1,26 +1,21 @@
 "use client";
 
-import { ArrowRight, Lock } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-import { gsap, prefersReducedMotion, isCoarsePointer } from "@/lib/gsap";
+import { useRef, useEffect } from "react";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
-const companies = [
-  { name: "Acme Corp", icon: "◎" },
-  { name: "EchoLab", icon: "◉" },
-  { name: "Innova", icon: "✦" },
-  { name: "PixelFlow", icon: "◈" },
-  { name: "Quantum", icon: "⬡" },
+
+
+const stats = [
+  { value: "15+", label: "Projects Delivered", accent: "#CCFF00" },
+  { value: "67%", label: "Keyword Ranking", accent: "#a78bfa" },
+  { value: "6-Step", label: "Proven Process", accent: "#38bdf8" },
+  { value: "9+", label: "Tools & Technologies", accent: "#f472b6" },
 ];
 
 export default function HeroSection() {
-  const [email, setEmail] = useState("");
-
   const rootRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const paraRef = useRef<HTMLParagraphElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
-  const trustRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -40,65 +35,37 @@ export default function HeroSection() {
         stagger: 0.09,
         transformOrigin: "50% 100%",
       })
-        .from(paraRef.current, { y: 30, opacity: 0, filter: "blur(6px)", duration: 0.8 }, "-=0.5")
-        .from(formRef.current, { y: 40, opacity: 0, scale: 0.94, duration: 0.7 }, "-=0.4")
-        .from(
-          trustRef.current?.querySelectorAll("[data-logo]") ?? [],
-          { y: 20, opacity: 0, stagger: 0.08, duration: 0.5 },
-          "-=0.3"
-        );
+        .from(paraRef.current, { y: 30, opacity: 0, filter: "blur(6px)", duration: 0.8 }, "-=0.5");
     }, rootRef);
 
     return () => ctx.revert();
   }, []);
 
-  // Magnetic CTA
-  useEffect(() => {
-    const btn = ctaRef.current;
-    if (!btn || isCoarsePointer()) return;
 
-    const xTo = gsap.quickTo(btn, "x", { duration: 0.5, ease: "power3" });
-    const yTo = gsap.quickTo(btn, "y", { duration: 0.5, ease: "power3" });
-
-    const onMove = (e: MouseEvent) => {
-      const r = btn.getBoundingClientRect();
-      xTo((e.clientX - (r.left + r.width / 2)) * 0.35);
-      yTo((e.clientY - (r.top + r.height / 2)) * 0.35);
-    };
-    const onLeave = () => { xTo(0); yTo(0); };
-
-    btn.addEventListener("mousemove", onMove);
-    btn.addEventListener("mouseleave", onLeave);
-    return () => {
-      btn.removeEventListener("mousemove", onMove);
-      btn.removeEventListener("mouseleave", onLeave);
-      gsap.killTweensOf(btn);
-    };
-  }, []);
 
   return (
     <div ref={rootRef}>
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pt-72 md:pt-72 lg:pt-100 max-w-5xl mx-auto">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pt-72 md:pt-72 lg:pt-100 pb-20 max-w-5xl mx-auto">
         <h1
           ref={headingRef}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.1] mb-5 sm:mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.3] mb-5 sm:mb-6 pb-2"
           style={{ perspective: 800 }}
         >
-          <span className="inline-block overflow-hidden align-bottom">
-            <span data-word className="inline-block">Design</span>
+          <span className="inline-block overflow-hidden align-bottom pb-1">
+            <span data-word className="inline-block">Pixels</span>
           </span>{" "}
-          <span className="inline-block overflow-hidden align-bottom">
-            <span data-word className="inline-block">work,</span>
+          <span className="inline-block overflow-hidden align-bottom pb-1">
+            <span data-word className="inline-block">forged,</span>
           </span>
           <br />
-          <span className="inline-block overflow-hidden align-bottom">
-            <span data-word className="inline-block">the</span>
+          <span className="inline-block overflow-hidden align-bottom pb-1">
+            <span data-word className="inline-block">into</span>
           </span>{" "}
-          <span className="inline-block overflow-hidden align-bottom">
-            <span data-word className="inline-block">efficient</span>
+          <span className="inline-block overflow-hidden align-bottom pb-1">
+            <span data-word className="inline-block">flawless</span>
           </span>{" "}
-          <span className="inline-block overflow-hidden align-bottom">
-            <span data-word className="inline-block">way</span>
+          <span className="inline-block overflow-hidden align-bottom pb-1">
+            <span data-word className="inline-block">code</span>
           </span>
         </h1>
 
@@ -106,58 +73,40 @@ export default function HeroSection() {
           ref={paraRef}
           className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mb-8 sm:mb-10 leading-relaxed"
         >
-          Innovative design solutions for technology firms and emerging
-          businesses weary of the typical aesthetic methodology. Arriving
-          shortly.
+          Frameonix Studio is a full-service web design and development agency
+          helping SaaS, e-commerce, and creative brands turn ideas into
+          exceptional digital experiences.
         </p>
 
-        <div ref={formRef} className="w-full max-w-lg">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white/4 backdrop-blur-sm border border-white/10 rounded-2xl p-2 overflow-hidden">
-            <input
-              type="email"
-              placeholder="johndoe@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 min-w-0 bg-transparent px-4 sm:px-5 py-3.5 sm:py-4 text-base outline-none placeholder:text-gray-500 text-white"
-            />
-            <button
-              ref={ctaRef}
-              className="flex items-center justify-center gap-2.5 bg-[#CCFF00] hover:bg-[#b8e600] text-black px-6 py-3.5 sm:py-4 rounded-xl font-semibold text-base transition-colors shrink-0 w-full sm:w-auto"
-            >
-              Get notified
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 mt-4 text-xs text-gray-500">
-            <Lock className="w-3 h-3" />
-            <span>No spam.</span>
-            <span className="mx-1 hidden sm:inline">•</span>
-            <span>Unsubscribe anytime.</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="relative z-10 border-t border-white/8 pt-8 sm:pt-10 pb-10 sm:pb-12">
-        <p className="text-center text-xs text-gray-500 mb-6 sm:mb-8 tracking-wide uppercase">
-          Trusted by future-forward companies
-        </p>
-        <div
-          ref={trustRef}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-14 px-4"
-        >
-          {companies.map((company) => (
-            <div
-              key={company.name}
-              data-logo
-              className="flex items-center gap-3 text-gray-400 hover:text-gray-300 transition-colors"
-            >
-              <div className="w-7 h-7 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-xs text-white/70">
-                {company.icon}
+        <div className="relative z-20 w-full max-w-3xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-3 items-stretch">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="group relative rounded-2xl border border-white/[0.1] bg-white/[0.06] backdrop-blur-md px-5 py-6 text-center transition-all duration-300 hover:border-white/[0.2] hover:bg-white/[0.1] flex flex-col items-center justify-center min-h-[120px]"
+                style={{
+                  boxShadow: `0 0 30px ${stat.accent}08`,
+                }}
+              >
+                {/* Top shimmer */}
+                <div
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `linear-gradient(90deg, transparent, ${stat.accent}60, transparent)`,
+                  }}
+                />
+                <div
+                  className="text-3xl sm:text-4xl font-bold tracking-tight mb-1.5"
+                  style={{ color: stat.accent }}
+                >
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-gray-500 font-medium tracking-wide">
+                  {stat.label}
+                </div>
               </div>
-              <span className="text-sm font-medium">{company.name}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

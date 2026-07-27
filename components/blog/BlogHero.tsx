@@ -30,7 +30,7 @@ export default function BlogHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 lg:pt-48 pb-12 md:pb-16 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 lg:pt-48 pb-12 md:pb-16 px-4 sm:px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div
         data-bh-bloom

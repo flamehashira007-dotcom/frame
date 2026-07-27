@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Design work, the efficient way",
+  title: "Frameonix Studio — Web Design & Development Agency",
   description:
-    "Innovative design solutions for technology firms and emerging businesses weary of the typical aesthetic methodology. Arriving shortly.",
+    "Frameonix Studio is a full-service web design and development agency helping SaaS, e-commerce, and creative brands turn ideas into exceptional digital experiences.",
 };
 
 export default function RootLayout({

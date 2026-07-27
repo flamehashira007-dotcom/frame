@@ -33,7 +33,7 @@ export default function PortfolioHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-40 md:pt-48 pb-8 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-40 md:pt-48 pb-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       {/* Ambient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-[#CCFF00]/[0.025] blur-[170px] pointer-events-none" />

@@ -2,12 +2,13 @@
 
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap, prefersReducedMotion, isCoarsePointer } from "@/lib/gsap";
 
 export default function PricingCTA() {
   const rootRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const btnRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
@@ -115,7 +116,7 @@ export default function PricingCTA() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-32 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-32 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div data-prc-orb className="absolute inset-0 pointer-events-none">
         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#CCFF00]/[0.03] blur-[170px]" />
@@ -221,18 +222,22 @@ export default function PricingCTA() {
               data-prc-actions
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <button
+              <Link
                 ref={btnRef}
+                href="/contact"
                 className="group/btn flex items-center gap-3 bg-[#CCFF00] hover:bg-[#b8e600] text-black px-8 py-4 rounded-full font-semibold text-base transition-colors shadow-[0_0_40px_rgba(204,255,0,0.25)]"
               >
                 Book a free call
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </button>
+              </Link>
 
-              <button className="group/btn2 flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.12] px-8 py-4 rounded-full font-semibold text-base transition-colors backdrop-blur-md">
+              <Link
+                href="/contact"
+                className="group/btn2 flex items-center gap-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.12] px-8 py-4 rounded-full font-semibold text-base transition-colors backdrop-blur-md"
+              >
                 Email us instead
                 <ArrowUpRight className="w-4 h-4 group-hover/btn2:translate-x-0.5 group-hover/btn2:-translate-y-0.5 transition-transform" />
-              </button>
+              </Link>
             </div>
 
             <div

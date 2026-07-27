@@ -96,7 +96,7 @@ export default function AboutHero() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white min-h-screen flex flex-col justify-center pt-40 md:pt-48 pb-20 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white min-h-screen flex flex-col justify-center pt-40 md:pt-48 pb-20 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       {/* Ambient */}
       <div
@@ -123,7 +123,7 @@ export default function AboutHero() {
         className="absolute top-1/2 left-0 -translate-y-1/2 w-[140%] pointer-events-none select-none"
       >
         <span className="block text-[18vw] font-bold tracking-tighter leading-none whitespace-nowrap text-white/[0.018] italic">
-          curious · stubborn · precise · curious · stubborn · precise
+          curious · precise · thorough · curious · precise · thorough
         </span>
       </div>
 
@@ -146,8 +146,8 @@ export default function AboutHero() {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.98] mb-8"
           style={{ perspective: 800 }}
         >
-          {["We're", "a", "small", "studio"].map((w) => (
-            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+          {["We're", "a", "focused", "studio"].map((w) => (
+            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-1">
               <span data-ah-word className="inline-block">
                 {w}
               </span>
@@ -155,13 +155,13 @@ export default function AboutHero() {
           ))}
           <br />
           {["with", "an"].map((w) => (
-            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+            <span key={w} className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-1">
               <span data-ah-word className="inline-block">
                 {w}
               </span>
             </span>
           ))}
-          <span className="inline-block overflow-hidden align-bottom mr-[0.22em]">
+          <span className="inline-block overflow-hidden align-bottom mr-[0.22em] pb-1">
             <span
               data-ah-word
               className="inline-block italic bg-gradient-to-r from-[#CCFF00] via-white to-[#CCFF00] bg-clip-text text-transparent"
@@ -170,7 +170,7 @@ export default function AboutHero() {
             </span>
           </span>
           <br />
-          <span className="inline-block overflow-hidden align-bottom">
+          <span className="inline-block overflow-hidden align-bottom pb-1">
             <span data-ah-word className="inline-block italic">
               standard.
             </span>
@@ -178,9 +178,9 @@ export default function AboutHero() {
         </h1>
 
         <p data-ah-sub className="text-base md:text-lg text-gray-400 max-w-2xl mb-14 leading-relaxed">
-          Twelve people across four timezones who got tired of watching good
-          ideas die in committee. We build brands and products that survive
-          contact with the real world.
+          A full-service web design and development studio helping SaaS,
+          e-commerce, and creative brands turn ideas into products that
+          actually ship — not just decks and mockups.
         </p>
 
         {/* Meta row */}
@@ -189,10 +189,10 @@ export default function AboutHero() {
           className="flex flex-wrap items-center gap-x-12 gap-y-6 pt-10 border-t border-white/[0.08]"
         >
           {[
-            { k: "Founded", v: "2016" },
-            { k: "Based in", v: "Ahmedabad, IN" },
-            { k: "Team", v: "12 people" },
-            { k: "Clients in", v: "12 countries" },
+            { k: "Based in", v: "Bangalore, IN" },
+            { k: "Focus", v: "SaaS & E-commerce" },
+            { k: "Projects", v: "15+ delivered" },
+            { k: "Process", v: "6-step system" },
           ].map((m) => (
             <div key={m.k}>
               <p className="text-[11px] tracking-widest uppercase text-gray-500 mb-1.5">{m.k}</p>

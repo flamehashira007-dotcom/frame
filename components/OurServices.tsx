@@ -3,43 +3,62 @@
 import { useState } from "react";
 import { Plus, Minus, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const services = [
   {
     number: "01",
-    title: "Branding Design",
-    tags: ["Brand Strategy", "Visual Identity"],
+    title: "Web Design (UI/UX)",
+    tags: ["User Research", "Wireframing"],
     description:
-      "Modern, responsive, and user-friendly websites designed to engage visitors and drive conversions.",
+      "Research-driven interfaces and wireframes that put the user at the center of every interaction, from first click to conversion.",
     image: "/service-branding.png",
     accent: { from: "#CCFF00", to: "#3a5406", glow: "rgba(204,255,0,0.08)" },
   },
   {
     number: "02",
-    title: "Digital Design",
-    tags: ["Motion Design", "Accessibility"],
+    title: "Web Development",
+    tags: ["Frontend", "Backend"],
     description:
-      "Captivating digital experiences with fluid motion and accessibility-first thinking that resonates with every audience.",
-    image: "/service-branding.png",
-    accent: { from: "#a78bfa", to: "#4c1d95", glow: "rgba(167,139,250,0.08)" },
-  },
-  {
-    number: "03",
-    title: "Web Design",
-    tags: ["Landing Pages", "Portfolio Sites"],
-    description:
-      "Pixel-perfect landing pages and portfolio sites built to convert visitors into loyal customers.",
+      "Modern, responsive, and user-friendly websites — built end-to-end on frontend and backend — designed to engage visitors and drive conversions.",
     image: "/service-branding.png",
     accent: { from: "#38bdf8", to: "#0c4a6e", glow: "rgba(56,189,248,0.08)" },
   },
   {
-    number: "04",
-    title: "UI,UX design",
-    tags: ["User Research", "Wireframing"],
+    number: "03",
+    title: "E-commerce Solutions",
+    tags: ["Storefronts", "Checkout Flows"],
     description:
-      "Research-driven interfaces and wireframes that put the user at the center of every interaction.",
+      "Conversion-focused storefronts with smooth checkout flows, built to turn browsers into buyers.",
+    image: "/service-branding.png",
+    accent: { from: "#a78bfa", to: "#4c1d95", glow: "rgba(167,139,250,0.08)" },
+  },
+  {
+    number: "04",
+    title: "SaaS Product Design",
+    tags: ["Dashboards", "Onboarding"],
+    description:
+      "Clear, intuitive dashboards and onboarding flows that help feature-rich platforms feel simple.",
     image: "/service-branding.png",
     accent: { from: "#f472b6", to: "#831843", glow: "rgba(244,114,182,0.08)" },
+  },
+  {
+    number: "05",
+    title: "Brand Identity & Motion Design",
+    tags: ["Visual Identity", "Motion Design"],
+    description:
+      "Captivating brand identities with fluid motion design that resonates with every audience.",
+    image: "/service-branding.png",
+    accent: { from: "#fb923c", to: "#7c2d12", glow: "rgba(251,146,60,0.08)" },
+  },
+  {
+    number: "06",
+    title: "Maintenance & Support",
+    tags: ["Ongoing Support", "Performance"],
+    description:
+      "Reliable, ongoing maintenance and performance monitoring so your product keeps running smoothly after launch.",
+    image: "/service-branding.png",
+    accent: { from: "#34d399", to: "#065f46", glow: "rgba(52,211,153,0.08)" },
   },
 ];
 
@@ -47,7 +66,7 @@ export default function OurServices() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 overflow-hidden">
       {/* ── Radiant background orbs ── */}
       <div className="absolute top-20 right-[10%] w-[600px] h-[600px] rounded-full bg-violet-500/[0.03] blur-[180px] pointer-events-none" />
       <div className="absolute top-1/2 left-[5%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.02] blur-[160px] pointer-events-none" />
@@ -62,7 +81,7 @@ export default function OurServices() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         {/* ── Header ── */}
         <div className="mb-16">
           <div className="flex items-center gap-2.5 mb-8">
@@ -150,11 +169,11 @@ export default function OurServices() {
                         : undefined,
                       WebkitBackgroundClip: isOpen ? "text" : undefined,
                       WebkitTextFillColor: isOpen ? "transparent" : undefined,
-                      color: isOpen ? undefined : "rgba(255,255,255,0.06)",
+                      color: isOpen ? undefined : "rgba(255, 255, 255, 0.9)",
                     }}
                   >
                     {service.number}.
-                  </span>
+                  </span> 
 
                   {/* Title + tags */}
                   <div className="flex-1 min-w-0">
@@ -256,7 +275,8 @@ export default function OurServices() {
                         {service.description}
                       </p>
 
-                      <button
+                      <Link
+                        href="/services"
                         className="inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 w-fit group/btn hover:scale-[1.03]"
                         style={{
                           background: `linear-gradient(135deg, ${service.accent.from}15, rgba(255,255,255,0.04))`,
@@ -281,7 +301,7 @@ export default function OurServices() {
                         >
                           <ArrowRight className="w-3.5 h-3.5" />
                         </span>
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

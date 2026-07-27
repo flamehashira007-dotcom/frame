@@ -8,15 +8,15 @@ import { client } from "@/sanity/lib/client";
 import { allPostsQuery, allCategoriesQuery, featuredPostQuery } from "@/sanity/lib/queries";
 
 export const metadata = {
-  title: "Blog — Ezando® Studio",
+  title: "Blog — Frameonix® Studio",
   description:
-    "Notes on brand, product design, and growth from the Ezando studio floor — no fluff, no filler.",
-  alternates: { canonical: "https://ezando.studio/blog" },
+    "Notes on brand, product design, and growth from the Frameonix studio floor — no fluff, no filler.",
+  alternates: { canonical: "https://Frameonix.studio/blog" },
   openGraph: {
-    title: "Blog — Ezando® Studio",
+    title: "Blog — Frameonix® Studio",
     description:
-      "Notes on brand, product design, and growth from the Ezando studio floor — no fluff, no filler.",
-    url: "https://ezando.studio/blog",
+      "Notes on brand, product design, and growth from the Frameonix studio floor — no fluff, no filler.",
+    url: "https://Frameonix.studio/blog",
     type: "website",
   },
 };
@@ -33,14 +33,14 @@ export default async function BlogPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "Ezando® Studio Blog",
-    url: "https://ezando.studio/blog",
+    name: "Frameonix® Studio Blog",
+    url: "https://Frameonix.studio/blog",
     description:
-      "Notes on brand, product design, and growth from the Ezando studio floor.",
+      "Notes on brand, product design, and growth from the Frameonix studio floor.",
     blogPost: posts.slice(0, 10).map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
-      url: `https://ezando.studio/blog/${p.slug}`,
+      url: `https://Frameonix.studio/blog/${p.slug}`,
       datePublished: p.publishedAt,
     })),
   };

@@ -8,20 +8,17 @@ type Tool = { name: string; cat: string; symbol: string; accent: string };
 const inner: Tool[] = [
   { name: "Figma", cat: "Design", symbol: "F", accent: "#f472b6" },
   { name: "Next.js", cat: "Framework", symbol: "N", accent: "#ffffff" },
-  { name: "GSAP", cat: "Motion", symbol: "G", accent: "#CCFF00" },
+  { name: "React", cat: "Framework", symbol: "R", accent: "#38bdf8" },
   { name: "TypeScript", cat: "Language", symbol: "TS", accent: "#38bdf8" },
   { name: "Tailwind", cat: "Styling", symbol: "T", accent: "#22d3ee" },
 ];
 
 const outer: Tool[] = [
   { name: "Webflow", cat: "CMS", symbol: "W", accent: "#38bdf8" },
-  { name: "Sanity", cat: "CMS", symbol: "S", accent: "#f87171" },
-  { name: "Vercel", cat: "Hosting", symbol: "▲", accent: "#ffffff" },
-  { name: "GA4", cat: "Analytics", symbol: "◷", accent: "#fb923c" },
-  { name: "HubSpot", cat: "CRM", symbol: "◉", accent: "#fb923c" },
-  { name: "Klaviyo", cat: "Email", symbol: "K", accent: "#34d399" },
-  { name: "Ahrefs", cat: "SEO", symbol: "A", accent: "#38bdf8" },
-  { name: "After Effects", cat: "Motion", symbol: "Ae", accent: "#a78bfa" },
+  { name: "Hono", cat: "Backend", symbol: "H", accent: "#fb923c" },
+  { name: "Encore", cat: "Backend", symbol: "E", accent: "#ffffff" },
+  { name: "Bun", cat: "Runtime", symbol: "B", accent: "#fbbf24" },
+  { name: "n8n", cat: "Automation", symbol: "n8n", accent: "#f87171" },
 ];
 
 function Ring({
@@ -107,16 +104,16 @@ export default function TechStack() {
   }, []);
 
   const cats = [
-    { c: "Design & Motion", v: "Figma · GSAP · After Effects" },
-    { c: "Build", v: "Next.js · TypeScript · Tailwind · Vercel" },
-    { c: "Content", v: "Sanity · Webflow" },
-    { c: "Growth", v: "GA4 · Ahrefs · HubSpot · Klaviyo" },
+    { c: "Design", v: "Figma" },
+    { c: "Frontend", v: "React · Next.js · TypeScript · Tailwind" },
+    { c: "Backend", v: "Hono · Encore · Bun" },
+    { c: "CMS & Automation", v: "Webflow · n8n" },
   ];
 
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-[#CCFF00]/[0.02] blur-[180px] pointer-events-none" />
 
@@ -131,7 +128,7 @@ export default function TechStack() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />

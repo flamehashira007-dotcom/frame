@@ -2,41 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { gsap,ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
 const disciplines = [
   {
     n: "01",
-    title: "Branding",
+    title: "Web Design (UI/UX)",
     accent: "#CCFF00",
-    blurb:
-      "Positioning, naming, identity systems, and the guidelines that keep it all from falling apart six months later.",
-    deliver: [
-      "Brand strategy",
-      "Logo & identity",
-      "Voice & tone",
-      "Brand guidelines",
-      "Asset library",
-    ],
-  },
-  {
-    n: "02",
-    title: "Graphic Design",
-    accent: "#a78bfa",
-    blurb:
-      "Everything the brand touches — decks, packaging, print, social, campaign artwork. Consistent, fast, on-system.",
-    deliver: [
-      "Pitch decks",
-      "Print & packaging",
-      "Campaign artwork",
-      "Social templates",
-      "Illustration",
-    ],
-  },
-  {
-    n: "03",
-    title: "UI/UX Design",
-    accent: "#38bdf8",
     blurb:
       "Research-led product design. Flows, wireframes, and interfaces built on a token set your engineers can actually ship.",
     deliver: [
@@ -48,31 +21,73 @@ const disciplines = [
     ],
   },
   {
-    n: "04",
-    title: "Website Design",
-    accent: "#f472b6",
+    n: "02",
+    title: "Web Development",
+    accent: "#38bdf8",
     blurb:
-      "Marketing sites that convert. Art direction, motion choreography, and layouts designed around the funnel, not the mood board.",
-    deliver: [
-      "Art direction",
-      "Landing pages",
-      "Motion spec",
-      "Responsive layouts",
-      "CRO review",
-    ],
-  },
-  {
-    n: "05",
-    title: "Website Development",
-    accent: "#34d399",
-    blurb:
-      "Next.js, TypeScript, and GSAP. Fast, accessible, indexable builds — handed over clean with docs.",
+      "Next.js, TypeScript, and modern backend tooling. Fast, accessible, indexable builds — handed over clean with docs.",
     deliver: [
       "Next.js build",
       "CMS integration",
       "Core Web Vitals",
       "Accessibility pass",
       "Handover docs",
+    ],
+  },
+  {
+    n: "03",
+    title: "E-commerce Solutions",
+    accent: "#a78bfa",
+    blurb:
+      "Conversion-focused storefronts with smooth checkout flows — built to turn browsers into buyers, not just look nice.",
+    deliver: [
+      "Storefront design",
+      "Checkout flows",
+      "Product pages",
+      "Mobile optimization",
+      "Payment integration",
+    ],
+  },
+  {
+    n: "04",
+    title: "SaaS Product Design",
+    accent: "#f472b6",
+    blurb:
+      "Clear, intuitive dashboards and onboarding flows that help feature-rich platforms feel simple, not overwhelming.",
+    deliver: [
+      "Onboarding flows",
+      "Dashboard design",
+      "Reporting UI",
+      "Data visualization",
+      "Design system",
+    ],
+  },
+  {
+    n: "05",
+    title: "Brand Identity & Motion Design",
+    accent: "#34d399",
+    blurb:
+      "Everything the brand touches — identity systems, campaign artwork, and the motion that makes it feel alive.",
+    deliver: [
+      "Brand strategy",
+      "Logo & identity",
+      "Motion design",
+      "Brand guidelines",
+      "Asset library",
+    ],
+  },
+  {
+    n: "06",
+    title: "Maintenance & Support",
+    accent: "#fb923c",
+    blurb:
+      "Reliable, ongoing maintenance and performance monitoring so your product keeps running smoothly after launch.",
+    deliver: [
+      "Bug fixes",
+      "Performance monitoring",
+      "Security updates",
+      "Content updates",
+      "Priority support",
     ],
   },
 ];
@@ -117,12 +132,12 @@ export default function ServiceDisciplines() {
     <section
       id="disciplines"
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-40 right-[10%] w-[600px] h-[600px] rounded-full bg-violet-500/[0.025] blur-[180px] pointer-events-none" />
       <div className="absolute bottom-20 left-[5%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -219,11 +234,13 @@ export default function ServiceDisciplines() {
                       {d.blurb}
                     </p>
 
-                    <button
+                    <Link
+                      href="/contact"
                       className="mt-7 inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 w-fit hover:scale-[1.03]"
                       style={{
                         background: `linear-gradient(135deg, ${d.accent}15, rgba(255,255,255,0.04))`,
                         border: `1px solid ${d.accent}30`,
+                        color: "white",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = d.accent;
@@ -236,7 +253,7 @@ export default function ServiceDisciplines() {
                     >
                       Discuss this
                       <ArrowUpRight className="w-4 h-4" />
-                    </button>
+                    </Link>
                   </div>
 
                   {/* Deliverables */}

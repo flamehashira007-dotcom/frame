@@ -9,7 +9,7 @@ const values = [
     icon: Compass,
     n: "01",
     title: "Say the hard thing early",
-    body: "If the brief is wrong, we tell you in week one — not in week seven when the invoice is already sunk. Disagreements are cheapest at the start.",
+    body: "If the brief is wrong, we tell you in discovery — not after the invoice is already sunk. Disagreements are cheapest at the start.",
     accent: "#CCFF00",
   },
   {
@@ -30,7 +30,7 @@ const values = [
     icon: Recycle,
     n: "04",
     title: "Build things that outlast us",
-    body: "Every project leaves behind a system your team can extend without calling us. We'd rather be missed than needed.",
+    body: "Every project leaves behind a system your team can extend without calling us back. We'd rather be missed than needed.",
     accent: "#34d399",
   },
 ];
@@ -70,12 +70,12 @@ export default function AboutValues() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-20 right-1/4 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/[0.018] blur-[170px] pointer-events-none" />
       <div className="absolute bottom-10 left-[10%] w-[400px] h-[400px] rounded-full bg-violet-500/[0.02] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -95,7 +95,7 @@ export default function AboutValues() {
           </span>
           <br />
           <span className="bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent">
-            We&apos;ve never broken them.
+            We don&apos;t break them.
           </span>
         </h2>
 

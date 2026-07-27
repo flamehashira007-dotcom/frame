@@ -108,11 +108,11 @@ export default function PricingCompare() {
     <section
       id="compare"
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-20 right-1/4 w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.02] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-10 mb-14">
           <div className="flex items-center gap-2.5 lg:pt-4">

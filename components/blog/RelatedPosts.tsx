@@ -38,7 +38,7 @@ export default function RelatedPosts({ posts }: { posts: RelatedPost[] }) {
   }, []);
 
   return (
-    <section ref={rootRef} className="relative bg-[#050505] text-white pb-20 md:pb-28 px-4 sm:px-6 md:px-12 lg:px-20 border-t border-white/6 pt-12 md:pt-16">
+    <section ref={rootRef} className="relative bg-[#050505] text-white pb-20 md:pb-28 px-4 sm:px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 border-t border-white/6 pt-12 md:pt-16">
       <div className="max-w-5xl mx-auto">
         <p className="text-[11px] tracking-widest uppercase text-gray-500 font-medium mb-6 md:mb-8">
           Keep reading

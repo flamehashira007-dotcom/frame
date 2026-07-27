@@ -6,22 +6,22 @@ import { useState } from "react";
 const steps = [
   {
     number: ".01",
-    label: "Project Kick-Off",
-    title: "Art Direction and Wireframing",
+    label: "Step 1",
+    title: "Discovery & Research",
     image: "/process-wireframe.png",
     accent: "#CCFF00",
   },
   {
     number: ".02",
-    label: "Design Process",
-    title: "Design and Prototype Process",
+    label: "Step 2",
+    title: "UI/UX Design & Prototyping",
     image: "/process-design.png",
     accent: "#a78bfa",
   },
   {
     number: ".03",
-    label: "Testing",
-    title: "Product Testing, Quality Control",
+    label: "Step 3",
+    title: "Development, Testing & Launch",
     image: "/process-testing.png",
     accent: "#38bdf8",
   },
@@ -31,12 +31,12 @@ export default function OurProcess() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 overflow-hidden">
       {/* Radiant blurs */}
       <div className="absolute top-10 left-[15%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 right-[10%] w-[450px] h-[450px] rounded-full bg-violet-500/[0.02] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         {/* ── Header ── */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-10 mb-20">
           <div className="flex items-center gap-2.5 lg:pt-4">
@@ -59,14 +59,14 @@ export default function OurProcess() {
               </span>
             </h2>
             <p className="text-sm sm:text-base text-gray-500 leading-relaxed max-w-md">
-              From breakthrough portfolios to performance-driven platforms — our
-              numbers speak louder than words.
+              Six steps, one clear path — from first discovery call to a
+              product that&apos;s live, supported, and growing.
             </p>
           </div>
         </div>
 
-        {/* ── Horizontal Accordion ── */}
-        <div className="flex flex-col md:flex-row gap-3 min-h-[480px]">
+        {/* ── Accordion — horizontal on desktop, stacked on mobile ── */}
+        <div className="flex flex-col md:flex-row gap-3 md:min-h-[480px]">
           {steps.map((step, i) => {
             const isActive = activeIndex === i;
 
@@ -74,13 +74,16 @@ export default function OurProcess() {
               <button
                 key={step.number}
                 onClick={() => setActiveIndex(i)}
-                className="relative rounded-3xl overflow-hidden cursor-pointer text-left transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] backdrop-blur-2xl"
+                className={`relative w-full rounded-3xl overflow-hidden cursor-pointer text-left transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] backdrop-blur-2xl ${
+                  isActive
+                    ? "min-h-[340px] md:min-h-[480px]"
+                    : "min-h-[76px] md:min-h-[480px]"
+                }`}
                 style={{
                   flex: isActive ? "3 1 0%" : "1 1 0%",
                   boxShadow: isActive
                     ? `0 0 0 1px ${step.accent}25, 0 12px 50px ${step.accent}08`
                     : "0 0 0 1px rgba(255,255,255,0.06)",
-                  minHeight: "480px",
                 }}
               >
                 {/* ── Glass background ── */}
@@ -126,7 +129,7 @@ export default function OurProcess() {
                   />
 
                   {/* Bottom content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-7 md:p-8">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                     {/* Label */}
                     <span
                       className="inline-block text-[11px] tracking-wider uppercase font-medium px-3 py-1 rounded-full mb-3 backdrop-blur-md"
@@ -138,7 +141,7 @@ export default function OurProcess() {
                     >
                       {step.label}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-tight text-white">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight leading-tight text-white">
                       {step.title}
                     </h3>
 
@@ -148,7 +151,7 @@ export default function OurProcess() {
 
                   {/* Number — bottom right */}
                   <span
-                    className="absolute bottom-6 right-8 text-8xl sm:text-9xl font-bold tracking-tighter leading-none"
+                    className="absolute bottom-4 right-5 md:bottom-6 md:right-8 text-6xl sm:text-8xl md:text-9xl font-bold tracking-tighter leading-none"
                     style={{
                       background: `linear-gradient(180deg, ${step.accent}20, ${step.accent}08)`,
                       WebkitBackgroundClip: "text",
@@ -159,35 +162,35 @@ export default function OurProcess() {
                   </span>
                 </div>
 
-                {/* ── COLLAPSED STATE: Vertical text layout ── */}
+                {/* ── COLLAPSED STATE: compact row on mobile, vertical text layout on desktop ── */}
                 <div
-                  className="absolute inset-0 flex flex-col justify-between p-6 md:p-7 transition-opacity duration-500"
+                  className="absolute inset-0 flex flex-row md:flex-col items-center md:items-stretch justify-between md:justify-between p-5 md:p-7 transition-opacity duration-500"
                   style={{ opacity: isActive ? 0 : 1, pointerEvents: isActive ? "none" : "auto" }}
                 >
-                  {/* Top: label + title */}
+                  {/* Label + title */}
                   <div>
-                    <span className="text-[11px] tracking-wider uppercase text-gray-600 font-medium block mb-3">
+                    <span className="text-[11px] tracking-wider uppercase text-gray-600 font-medium block mb-1 md:mb-3">
                       {step.label}
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-semibold tracking-tight leading-tight text-gray-300">
+                    <h3 className="text-base sm:text-xl md:text-2xl font-semibold tracking-tight leading-tight text-gray-300">
                       {step.title}
                     </h3>
                   </div>
 
-                  {/* Bottom: large number */}
-                  <div className="flex justify-end">
+                  {/* Number */}
+                  <div className="flex justify-end shrink-0">
                     <span
-                      className="text-8xl sm:text-9xl font-bold tracking-tighter leading-none"
+                      className="text-3xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none"
                       style={{
-                        color: `${step.accent}10`,
+                        color: `${step.accent}30`,
                       }}
                     >
                       {step.number}
                     </span>
                   </div>
 
-                  {/* Bottom line */}
-                  <div className="absolute bottom-0 left-6 right-6 h-px bg-white/[0.06]" />
+                  {/* Bottom line — desktop only */}
+                  <div className="hidden md:block absolute bottom-0 left-6 right-6 h-px bg-white/[0.06]" />
                 </div>
               </button>
             );

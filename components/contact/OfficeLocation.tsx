@@ -8,14 +8,14 @@ const transportOptions = [
   {
     icon: Car,
     label: "By Car",
-    description: "Free parking available in basement",
-    time: "30 min from airport",
+    description: "Get in touch for parking details",
+    time: "Central Bangalore",
   },
   {
     icon: Train,
     label: "Public Transit",
-    description: "Metro station 5 min walk",
-    time: "Connected to all major hubs",
+    description: "Well connected by metro and bus routes",
+    time: "Ask us for directions",
   },
 ];
 
@@ -74,11 +74,11 @@ export default function OfficeLocation() {
     <section
       ref={rootRef}
       id="map"
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-20 right-[10%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         <div className="flex items-center gap-2.5 mb-16">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -96,7 +96,8 @@ export default function OfficeLocation() {
                 Our studio location
               </h2>
               <p className="text-lg text-gray-400 leading-relaxed">
-                Located in the heart of Ahmedabad's creative district, our studio is designed to inspire collaboration and innovation.
+                Based in Bangalore, our studio works with SaaS, e-commerce,
+                and creative brands wherever they are in the world.
               </p>
             </div>
 
@@ -106,10 +107,9 @@ export default function OfficeLocation() {
                   <MapPin className="w-5 h-5 text-[#CCFF00]" />
                 </div>
                 <div>
-                  <h3 className="text-white font-medium mb-1">Address</h3>
+                  <h3 className="text-white font-medium mb-1">Location</h3>
                   <p className="text-gray-500">
-                    123 Creative Street, Design District<br />
-                    Ahmedabad, Gujarat 380001<br />
+                    Bangalore, Karnataka<br />
                     India
                   </p>
                 </div>
@@ -122,7 +122,7 @@ export default function OfficeLocation() {
                 <div>
                   <h3 className="text-white font-medium mb-1">Office Hours</h3>
                   <p className="text-gray-500">
-                    Monday - Friday: 9:00 AM - 6:00 PM IST<br />
+                    Monday - Friday: 10:00 AM - 7:00 PM IST<br />
                     Saturday: By appointment only<br />
                     Sunday: Closed
                   </p>
@@ -136,8 +136,8 @@ export default function OfficeLocation() {
                 <div>
                   <h3 className="text-white font-medium mb-1">Getting Here</h3>
                   <p className="text-gray-500">
-                    15 minutes from Ahmedabad International Airport<br />
-                    5 minutes walk from the nearest metro station
+                    Reach out and we&apos;ll share directions and parking
+                    details ahead of your visit.
                   </p>
                 </div>
               </div>
@@ -190,8 +190,8 @@ export default function OfficeLocation() {
                     <MapPin className="w-5 h-5 text-[#CCFF00]" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Ezando Studio</p>
-                    <p className="text-gray-500 text-sm">123 Creative Street, Ahmedabad</p>
+                    <p className="text-white font-medium">Frameonix Studio</p>
+                    <p className="text-gray-500 text-sm">Bangalore, India</p>
                   </div>
                 </div>
               </div>

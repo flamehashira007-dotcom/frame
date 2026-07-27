@@ -10,7 +10,7 @@ import AboutCTA from "@/components/about/AboutCTA";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "About — Ezando® Studio",
+  title: "About — Frameonix® Studio",
   description:
     "A creative studio of designers, strategists, and engineers crafting bold digital experiences from Ahmedabad to everywhere.",
 };

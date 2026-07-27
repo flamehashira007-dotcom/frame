@@ -129,8 +129,8 @@ export default function BlogGrid({
   }, [filtered]);
 
   return (
-    <section ref={rootRef} className="relative bg-[#050505] text-white pb-20 md:pb-28 px-4 sm:px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto">
+    <section ref={rootRef} className="relative bg-[#050505] text-white pb-20 md:pb-28 px-4 sm:px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+      <div className="max-w-[1536px] mx-auto">
         {/* Search */}
         <div className="mb-8">
           <div className="relative">

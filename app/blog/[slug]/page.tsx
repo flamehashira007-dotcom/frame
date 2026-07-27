@@ -67,10 +67,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = post.seoDescription || post.excerpt || "";
   const image = post.seoImage || post.coverImage;
   const imageUrl = image ? urlFor(image).width(1200).height(630).url() : undefined;
-  const canonical = post.canonicalUrl || `https://ezando.studio/blog/${post.slug}`;
+  const canonical = post.canonicalUrl || `https://frameonix.com/blog/${post.slug}`;
 
   return {
-    title: `${title} — Ezando® Studio Blog`,
+    title: `${title} — Frameonix Studio Blog`,
     description,
     alternates: { canonical },
     robots: post.noIndex ? { index: false, follow: false } : undefined,
@@ -107,7 +107,7 @@ export default async function BlogPostPage({ params }: Props) {
     ? await client.fetch(relatedPostsQuery, { slug, categoryIds })
     : [];
 
-  const canonical = post.canonicalUrl || `https://ezando.studio/blog/${post.slug}`;
+  const canonical = post.canonicalUrl || `https://frameonix.com/blog/${post.slug}`;
   const imageUrl = urlFor(post.seoImage || post.coverImage).width(1200).height(630).url();
 
   // ── Structured data: Article + Breadcrumb ──
@@ -125,10 +125,10 @@ export default async function BlogPostPage({ params }: Props) {
     },
     publisher: {
       "@type": "Organization",
-      name: "Ezando® Studio",
+      name: "Frameonix Studio",
       logo: {
         "@type": "ImageObject",
-        url: "https://ezando.studio/logo.png",
+        url: "https://frameonix.com/logo.png",
       },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
@@ -138,8 +138,8 @@ export default async function BlogPostPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://ezando.studio" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://ezando.studio/blog" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://frameonix.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://frameonix.com/blog" },
       { "@type": "ListItem", position: 3, name: post.title, item: canonical },
     ],
   };
@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params }: Props) {
       <ScrollRefresh />
       <Navbar />
 
-      <article className="relative bg-[#050505] text-white pt-32 md:pt-40 lg:pt-48 pb-6 md:pb-8 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden">
+      <article className="relative bg-[#050505] text-white pt-32 md:pt-40 lg:pt-48 pb-6 md:pb-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[90vw] max-w-[800px] h-[500px] rounded-full bg-[#CCFF00]/[0.025] blur-[170px] pointer-events-none"
         />
@@ -211,7 +211,7 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       {/* Cover image */}
-      <div className="relative bg-[#050505] px-4 sm:px-6 md:px-12 lg:px-20 pb-3 md:pb-4">
+      <div className="relative bg-[#050505] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pb-3 md:pb-4">
         <div className="max-w-3xl mx-auto rounded-3xl md:rounded-4xl overflow-hidden border border-white/8">
           <Image
             src={urlFor(post.coverImage).width(1400).height(800).url()}

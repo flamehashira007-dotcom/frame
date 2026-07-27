@@ -41,7 +41,7 @@ function RankViz() {
 }
 
 
-/* ── micro-visual: ROAS gauge arc (Google Ads) ── */
+/* ── micro-visual: illustrative performance gauge arc (Google Ads) ── */
 function GaugeViz({ color }: { color: string }) {
   const [on, setOn] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -57,7 +57,7 @@ function GaugeViz({ color }: { color: string }) {
   const cx = 60;
   const cy = 50;
   const circumference = Math.PI * r; /* half-circle */
-  const fillPct = 0.72; /* 72% — the "performance" value */
+  const fillPct = 0.7; /* illustrative fill — not a claimed result */
   return (
     <div ref={ref} className="flex flex-col items-center">
       <svg viewBox="0 0 120 65" className="w-full max-w-[140px]" fill="none">
@@ -97,7 +97,7 @@ function GaugeViz({ color }: { color: string }) {
             transition: "stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1)",
           }}
         />
-        {/* center value */}
+        {/* center value — rounded, illustrative only */}
         <text
           x={cx} y={cy - 6}
           textAnchor="middle"
@@ -105,7 +105,7 @@ function GaugeViz({ color }: { color: string }) {
           fill={color}
           style={{ opacity: on ? 1 : 0, transitionDelay: "800ms" }}
         >
-          4.2×
+          ROAS
         </text>
         <text
           x={cx} y={cy + 5}
@@ -114,7 +114,7 @@ function GaugeViz({ color }: { color: string }) {
           fill="#9ca3af"
           style={{ opacity: on ? 1 : 0, transition: "opacity 0.5s", transitionDelay: "1s" }}
         >
-          ROAS
+          tracked weekly
         </text>
       </svg>
     </div>
@@ -133,11 +133,11 @@ function RadarViz({ color }: { color: string }) {
     return () => o.disconnect();
   }, []);
   const dims = [
-    { label: "Reach", val: 0.9 },
-    { label: "CTR", val: 0.65 },
-    { label: "CPA", val: 0.8 },
-    { label: "ROAS", val: 0.72 },
-    { label: "Eng", val: 0.85 },
+    { label: "Reach", val: 0.85 },
+    { label: "CTR", val: 0.6 },
+    { label: "CPA", val: 0.75 },
+    { label: "ROAS", val: 0.7 },
+    { label: "Eng", val: 0.8 },
   ];
   const cx = 60, cy = 40, R = 32;
   const angle = (i: number) => (Math.PI * 2 * i) / dims.length - Math.PI / 2;
@@ -239,9 +239,9 @@ function RippleViz({ color }: { color: string }) {
     return () => o.disconnect();
   }, []);
   const rings = [
-    { r: 10, label: "42%", desc: "click" },
-    { r: 22, label: "68%", desc: "open" },
-    { r: 34, label: "97%", desc: "delivered" },
+    { r: 10, label: "click", desc: "" },
+    { r: 22, label: "open", desc: "" },
+    { r: 34, label: "delivered", desc: "" },
   ];
   const cx = 60, cy = 42;
   return (
@@ -289,12 +289,12 @@ function RippleViz({ color }: { color: string }) {
             transitionDelay: "0.2s",
           }}
         />
-        {/* metric labels along rings */}
+        {/* stage labels along rings — no specific percentages, just funnel stages */}
         {rings.map((ring, i) => (
           <text
-            key={`lbl-${i}`}
+            key={`desc-${i}`}
             x={cx + ring.r + 3}
-            y={cy - 3}
+            y={cy}
             className="text-[7px] font-mono"
             fill={i === 0 ? color : "#6b7280"}
             style={{
@@ -304,23 +304,6 @@ function RippleViz({ color }: { color: string }) {
             }}
           >
             {ring.label}
-          </text>
-        ))}
-        {/* bottom labels */}
-        {rings.map((ring, i) => (
-          <text
-            key={`desc-${i}`}
-            x={cx + ring.r + 3}
-            y={cy + 5}
-            className="text-[6px] font-mono"
-            fill="#4b5563"
-            style={{
-              opacity: on ? 1 : 0,
-              transition: "opacity 0.5s",
-              transitionDelay: `${(rings.length - 1 - i) * 250 + 600}ms`,
-            }}
-          >
-            {ring.desc}
           </text>
         ))}
       </svg>
@@ -730,13 +713,13 @@ export default function MarketingChannels() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       {/* Ambient */}
       <div className="absolute top-20 left-1/3 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/[0.02] blur-[170px] pointer-events-none" />
       <div className="absolute bottom-20 right-[15%] w-[450px] h-[450px] rounded-full bg-cyan-500/[0.025] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         {/* Eyebrow */}
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">

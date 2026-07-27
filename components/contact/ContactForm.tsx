@@ -6,11 +6,25 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const budgets = ["< $5k", "$5k – $15k", "$15k – $50k", "$50k+"];
 const services = [
-  "Branding", "UI/UX", "Web Design", "Web Development",
-  "SEO & Ads", "Content & Email", "Video & Motion", "Not sure yet",
+  "Web Design (UI/UX)", "Web Development", "E-commerce Solutions",
+  "SaaS Product Design", "Brand Identity & Motion", "Maintenance & Support", "Not sure yet",
 ];
 
 type Status = "idle" | "submitting" | "success" | "error";
+
+// ── Google Forms submission config ──
+// 1. Get your form's ID from its edit/view URL: .../forms/d/e/FORM_ID/viewform
+// 2. Get each field's entry.XXXXXXXXX ID via Form (⋮) → "Get pre-filled link"
+const SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || ""
+const GOOGLE_FORM_ENTRIES = {
+  name: "entry.XXXXXXXXX",
+  email: "entry.XXXXXXXXX",
+  company: "entry.XXXXXXXXX",
+  website: "entry.XXXXXXXXX",
+  service: "entry.XXXXXXXXX",
+  budget: "entry.XXXXXXXXX",
+  message: "entry.XXXXXXXXX",
+};
 
 export default function ContactForm() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -57,14 +71,30 @@ export default function ContactForm() {
 
     setStatus("submitting");
     try {
-      // Replace with your actual endpoint, e.g.:
-      // await fetch("/api/contact", { method: "POST", body: data });
-      await new Promise((r) => setTimeout(r, 1100));
+      const params = new URLSearchParams();
+      params.append("name", name);
+      params.append("email", email);
+      params.append("company", String(data.get("company") || ""));
+      params.append("website", String(data.get("website") || ""));
+      params.append("service", String(data.get("service") || ""));
+      params.append("budget", String(data.get("budget") || ""));
+      params.append("message", message);
+
+      // Using mode: "no-cors" and application/x-www-form-urlencoded passes data cleanly
+      // into e.parameter inside Google Apps Script while avoiding browser CORS issues.
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString(),
+      });
+
       setStatus("success");
       form.reset();
       setBudget(null);
       setService(null);
-    } catch {
+    } catch (err) {
+      console.error("Form submission error:", err);
       setStatus("error");
     }
   }

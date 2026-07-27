@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { ArrowRight, Plus } from "lucide-react";
+import Link from "next/link";
 import { gsap, prefersReducedMotion, isCoarsePointer } from "@/lib/gsap";
 
 const addons = [
@@ -111,11 +112,11 @@ export default function PricingAddons() {
     <section
       id="add-ons"
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-40 left-[15%] w-[400px] h-[400px] rounded-full bg-violet-500/[0.02] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-10 mb-14">
           <div className="flex items-center gap-2.5 lg:pt-4">
@@ -211,10 +212,13 @@ export default function PricingAddons() {
           <p className="text-sm text-gray-500 mb-4">
             Need a custom combination?
           </p>
-          <button className="inline-flex items-center gap-2 text-sm font-medium text-[#CCFF00] hover:text-[#b8e600] transition-colors group/link">
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#CCFF00] hover:text-[#b8e600] transition-colors group/link"
+          >
             Build a custom quote
             <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

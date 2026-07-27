@@ -6,38 +6,45 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 const phases = [
   {
     n: ".01",
-    label: "Week 1",
-    title: "Discovery & Audit",
-    body: "We tear apart what you have — brand, site, funnel, analytics — and write down what's actually broken. You get the findings whether or not you hire us.",
-    out: ["Audit deck", "Opportunity map", "Success metrics"],
+    label: "Step 1",
+    title: "Discovery & Research",
+    body: "We understand your goals, audience, and competitive landscape before a single pixel gets placed. You get the findings whether or not you hire us.",
+    out: ["Discovery notes", "Opportunity map", "Success metrics"],
   },
   {
     n: ".02",
-    label: "Week 2–3",
-    title: "Strategy & Direction",
-    body: "Positioning locked, art direction agreed, scope written. This is the phase where disagreements are cheap — so we have them here.",
-    out: ["Positioning doc", "Art direction", "Scope & timeline"],
+    label: "Step 2",
+    title: "Ideation & Wireframing",
+    body: "Structure and flow come first — low-fidelity wireframes map out how the product actually works before visual design starts.",
+    out: ["User flows", "Wireframes", "Scope & timeline"],
   },
   {
     n: ".03",
-    label: "Week 3–7",
-    title: "Design & Build",
-    body: "Weekly builds in your inbox. Design system first, then screens, then code. No six-week silence followed by a big reveal.",
-    out: ["Design system", "Hi-fi screens", "Production build"],
+    label: "Step 3",
+    title: "UI/UX Design",
+    body: "User-centric interfaces built in Figma, focused on clarity and measurable business outcomes — not just what looks good.",
+    out: ["Design system", "Hi-fi screens", "Prototype"],
   },
   {
     n: ".04",
-    label: "Week 7–8",
-    title: "Test & Launch",
-    body: "Accessibility pass, Core Web Vitals, cross-device QA, analytics wired. Then we ship it and watch the numbers for a fortnight.",
-    out: ["QA report", "Analytics setup", "Launch"],
+    label: "Step 4",
+    title: "Development & Integration",
+    body: "React, Next.js, TypeScript, and the right backend — built to match the design exactly, not approximate it.",
+    out: ["Frontend build", "Backend integration", "CMS setup"],
   },
   {
     n: ".05",
-    label: "Ongoing",
-    title: "Iterate & Grow",
-    body: "Channels switch on, creative gets tested, the system gets extended. Retainer clients get rollover hours and a standing weekly slot.",
-    out: ["Monthly reporting", "Creative testing", "System extensions"],
+    label: "Step 5",
+    title: "Testing & QA",
+    body: "Cross-browser, cross-device checks and accessibility passes before anything ships, so launch day has no surprises.",
+    out: ["QA report", "Accessibility pass", "Performance check"],
+  },
+  {
+    n: ".06",
+    label: "Step 6",
+    title: "Launch & Support",
+    body: "We ship it, wire up analytics, and stay on afterward for maintenance and support — not just a handover email.",
+    out: ["Launch", "Analytics setup", "Ongoing support"],
   },
 ];
 
@@ -91,7 +98,7 @@ export default function ServiceProcess() {
   return (
     <section
       ref={rootRef}
-      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative bg-[#050505] text-white pt-32 md:pt-40 pb-28 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 overflow-hidden"
     >
       <div className="absolute top-10 left-[15%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 right-[10%] w-[450px] h-[450px] rounded-full bg-violet-500/[0.02] blur-[140px] pointer-events-none" />
@@ -111,7 +118,7 @@ export default function ServiceProcess() {
           className="text-4xl sm:text-5xl md:text-[4rem] font-bold tracking-tight leading-[1.02] italic mb-20 max-w-2xl"
         >
           <span className="bg-gradient-to-r from-white via-white to-gray-500 bg-clip-text text-transparent">
-            Eight weeks.
+            Six steps.
           </span>
           <br />
           <span className="bg-gradient-to-r from-white via-gray-400 to-gray-700 bg-clip-text text-transparent">

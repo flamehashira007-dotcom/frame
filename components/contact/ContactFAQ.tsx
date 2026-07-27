@@ -91,7 +91,7 @@ export default function ContactFAQ() {
   }, []);
 
   return (
-    <section ref={rootRef} className="relative bg-[#050505] text-white pb-32 px-6 md:px-12 lg:px-20">
+    <section ref={rootRef} className="relative bg-[#050505] text-white pb-32 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
       <div className="max-w-4xl mx-auto">
         <p className="text-sm tracking-widest uppercase text-gray-400 font-medium mb-8">
           Quick answers

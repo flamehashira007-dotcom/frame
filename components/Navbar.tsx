@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "@/lib/gsap";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -65,19 +66,22 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 border-b"
       style={{ borderColor: "rgba(255,255,255,0)" }}
     >
-      <div className="flex items-center justify-between px-6 py-6 max-w-7xl mx-auto w-full">
+      <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-[1536px] mx-auto w-full">
         {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0" aria-label="Ezando home">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <rect x="14" y="2" width="8" height="12" rx="2" fill="#CCFF00" />
-            <rect x="2" y="14" width="12" height="8" rx="2" fill="#CCFF00" />
-            <rect x="22" y="14" width="12" height="8" rx="2" fill="#CCFF00" />
-            <rect x="14" y="22" width="8" height="12" rx="2" fill="#CCFF00" />
-          </svg>
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 md:gap-3.5 shrink-0" aria-label="Frameonix home">
+          <Image
+            src="/Frameonix New Logo.svg"
+            alt="Frameonix Logo"
+            width={52}
+            height={52}
+            className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 object-contain"
+            priority
+          />
+          <span className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-white">Frameonix</span>
         </Link>
 
-        {/* Links - Desktop */}
-        <div className="hidden md:flex items-center gap-1 bg-white/[0.04] backdrop-blur-md rounded-full px-2 py-1.5 border border-white/[0.1]">
+        {/* Links - Medium & Desktop */}
+        <div className="hidden md:flex items-center gap-0.5 lg:gap-1 bg-white/[0.04] backdrop-blur-md rounded-full px-1.5 py-1 lg:px-2 lg:py-1.5 border border-white/[0.1]">
           {navLinks.map((link) => {
             const active = isActive(link.href);
             return (
@@ -85,9 +89,9 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative px-4 py-2 text-sm rounded-full transition-colors ${
+                className={`relative px-2.5 py-1.5 lg:px-4 lg:py-2 text-xs lg:text-sm rounded-full transition-colors whitespace-nowrap ${
                   active
-                    ? "text-[#CCFF00] bg-[#CCFF00]/[0.08]"
+                    ? "text-[#CCFF00] bg-[#CCFF00]/[0.08] font-medium"
                     : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
@@ -97,27 +101,28 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* CTA + Hamburger - Mobile */}
-        <div className="flex items-center gap-3">
+        {/* CTA + Hamburger - Mobile & Tablet */}
+        <div className="flex items-center gap-2.5 sm:gap-3">
           <Link
             href="/contact"
-            className="hidden md:flex shrink-0 px-6 py-2.5 text-sm font-semibold bg-[#CCFF00] hover:bg-[#b8e600] text-black rounded-full transition-colors shadow-[0_0_30px_rgba(204,255,0,0.2)]"
+            className="hidden sm:flex shrink-0 px-4 py-2 sm:px-5 sm:py-2 lg:px-6 lg:py-2.5 text-xs sm:text-sm font-semibold bg-[#CCFF00] hover:bg-[#b8e600] text-black rounded-full transition-colors shadow-[0_0_30px_rgba(204,255,0,0.2)]"
           >
             Book a Call
           </Link>
           <button
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.04] border border-white/[0.1]"
+            className="md:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/[0.04] border border-white/[0.1] hover:bg-white/10 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle navigation menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile & Tablet Menu Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#050505]/95 backdrop-blur-xl border-t border-white/[0.06] px-6 py-6">
-          <div className="flex flex-col gap-3">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-[#050505]/95 backdrop-blur-2xl border-t border-b border-white/[0.08] px-4 sm:px-6 py-6 shadow-2xl">
+          <div className="flex flex-col gap-2">
             {navLinks.map((link) => {
               const active = isActive(link.href);
               return (
@@ -125,10 +130,10 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`px-4 py-3 text-base rounded-xl transition-colors ${
+                  className={`px-4 py-3 text-base rounded-xl transition-colors font-medium ${
                     active
-                      ? "text-[#CCFF00] bg-[#CCFF00]/[0.08]"
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                      ? "text-[#CCFF00] bg-[#CCFF00]/[0.10]"
+                      : "text-gray-300 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   {link.label}
@@ -137,7 +142,7 @@ export default function Navbar() {
             })}
             <Link
               href="/contact"
-              className="mt-4 px-6 py-3 text-center text-sm font-semibold bg-[#CCFF00] hover:bg-[#b8e600] text-black rounded-full transition-colors shadow-[0_0_30px_rgba(204,255,0,0.2)]"
+              className="mt-4 px-6 py-3.5 text-center text-sm font-semibold bg-[#CCFF00] hover:bg-[#b8e600] text-black rounded-full transition-colors shadow-[0_0_30px_rgba(204,255,0,0.2)]"
             >
               Book a Call
             </Link>
