@@ -100,7 +100,7 @@ export default function CTASection() {
         <div className="absolute top-1/3 left-[10%] w-[350px] h-[350px] rounded-full bg-emerald-500/[0.02] blur-[130px]" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto w-full">
         <div
           data-cta-card
           className="group relative rounded-[2.5rem] overflow-hidden border border-white/[0.08] bg-gradient-to-b from-white/[0.06] to-white/[0.01] backdrop-blur-2xl px-6 py-14 sm:px-8 sm:py-20 md:px-16 md:py-28 text-center"

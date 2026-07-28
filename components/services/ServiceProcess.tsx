@@ -103,7 +103,8 @@ export default function ServiceProcess() {
       <div className="absolute top-10 left-[15%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 right-[10%] w-[450px] h-[450px] rounded-full bg-violet-500/[0.02] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto w-full">
+        <div className="relative max-w-5xl mx-auto">
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />
@@ -191,6 +192,7 @@ export default function ServiceProcess() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>

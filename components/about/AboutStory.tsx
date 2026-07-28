@@ -124,7 +124,7 @@ export default function AboutStory() {
       <div className="absolute top-20 left-[10%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 right-[5%] w-[400px] h-[400px] rounded-full bg-[#CCFF00]/[0.02] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-[1536px] mx-auto">
+      <div className="relative max-w-[1536px] mx-auto w-full">
         <div className="flex items-center gap-2.5 mb-16">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />

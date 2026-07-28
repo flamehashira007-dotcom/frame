@@ -45,7 +45,8 @@ export default function HeroSection() {
 
   return (
     <div ref={rootRef}>
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 pt-72 md:pt-72 lg:pt-100 pb-20 max-w-5xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center pt-72 md:pt-72 lg:pt-100 pb-20 max-w-5xl mx-auto">
         <h1
           ref={headingRef}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.3] mb-5 sm:mb-6 pb-2"
@@ -107,6 +108,7 @@ export default function HeroSection() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </div>

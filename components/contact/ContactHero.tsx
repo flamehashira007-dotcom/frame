@@ -63,6 +63,7 @@ export default function ContactHero() {
         }}
       />
 
+      <div className="relative max-w-[1536px] mx-auto w-full">
       <div className="relative max-w-5xl mx-auto text-center">
         <div
           data-ch-eyebrow
@@ -121,6 +122,7 @@ export default function ContactHero() {
             No lock-in
           </span>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -115,7 +115,8 @@ export default function PricingHero() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto w-full text-center">
+      <div className="relative max-w-[1536px] mx-auto w-full">
+        <div className="relative max-w-6xl mx-auto w-full text-center">
         {/* Eyebrow */}
         <div
           data-ph-eyebrow
@@ -200,6 +201,7 @@ export default function PricingHero() {
         >
           <ArrowDown className="w-4 h-4 text-[#CCFF00]" />
           View plans
+        </div>
         </div>
       </div>
     </section>

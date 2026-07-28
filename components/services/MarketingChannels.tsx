@@ -719,7 +719,7 @@ export default function MarketingChannels() {
       <div className="absolute top-20 left-1/3 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/[0.02] blur-[170px] pointer-events-none" />
       <div className="absolute bottom-20 right-[15%] w-[450px] h-[450px] rounded-full bg-cyan-500/[0.025] blur-[140px] pointer-events-none" />
 
-      <div className="relative max-w-[1536px] mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         {/* Eyebrow */}
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">

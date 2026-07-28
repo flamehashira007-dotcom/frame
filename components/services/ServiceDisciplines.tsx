@@ -137,7 +137,7 @@ export default function ServiceDisciplines() {
       <div className="absolute top-40 right-[10%] w-[600px] h-[600px] rounded-full bg-violet-500/[0.025] blur-[180px] pointer-events-none" />
       <div className="absolute bottom-20 left-[5%] w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.015] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-[1536px] mx-auto">
+      <div className="relative max-w-[1536px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         <div className="flex items-center gap-2.5 mb-8">
           <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
             <span className="absolute inset-0 rounded-full bg-[#CCFF00] animate-ping opacity-40" />

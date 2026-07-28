@@ -62,7 +62,8 @@ export default function PortfolioDecks() {
     >
       <div className="absolute bottom-0 right-[15%] w-[500px] h-[500px] rounded-full bg-violet-500/[0.02] blur-[150px] pointer-events-none" />
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto w-full">
+        <div className="relative max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
           {decks.map((d) => {
             const Icon = d.icon;
@@ -210,6 +211,7 @@ export default function PortfolioDecks() {
           </Link>{" "}
           — we&apos;ll send the relevant case study directly.
         </p>
+        </div>
       </div>
     </section>
   );

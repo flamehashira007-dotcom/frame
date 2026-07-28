@@ -170,7 +170,8 @@ export default function ServicesFAQ() {
     >
       <div className="absolute top-20 right-1/4 w-[500px] h-[500px] rounded-full bg-[#CCFF00]/[0.02] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto w-full">
+        <div className="relative max-w-5xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-10 mb-14">
           <div className="flex items-center gap-2.5 lg:pt-4">
             <span className="relative w-2.5 h-2.5 rounded-full bg-[#CCFF00]">
@@ -211,6 +212,7 @@ export default function ServicesFAQ() {
               onToggle={() => setOpen(open === i ? -1 : i)}
             />
           ))}
+        </div>
         </div>
       </div>
     </section>

@@ -49,7 +49,8 @@ export default function PortfolioHero() {
         }}
       />
 
-      <div className="relative max-w-5xl mx-auto text-center">
+      <div className="relative max-w-[1536px] mx-auto w-full">
+        <div className="relative max-w-5xl mx-auto text-center">
         <div
           data-ph-eyebrow
           className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.1] backdrop-blur-md"
@@ -88,6 +89,7 @@ export default function PortfolioHero() {
           Pick the side you care about. Read it in the browser or take the PDF
           with you — both are the full thing, no gated preview.
         </p>
+        </div>
       </div>
     </section>
   );

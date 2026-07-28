@@ -92,7 +92,8 @@ export default function ContactFAQ() {
 
   return (
     <section ref={rootRef} className="relative bg-[#050505] text-white pb-32 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
-      <div className="max-w-4xl mx-auto">
+      <div className="relative max-w-[1536px] mx-auto w-full">
+      <div className="max-w-4xl">
         <p className="text-sm tracking-widest uppercase text-gray-400 font-medium mb-8">
           Quick answers
         </p>
@@ -101,6 +102,7 @@ export default function ContactFAQ() {
             <Item key={f.q} f={f} i={i} open={open === i} onToggle={() => setOpen(open === i ? -1 : i)} />
           ))}
         </div>
+      </div>
       </div>
     </section>
   );
