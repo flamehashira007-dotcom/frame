@@ -20,7 +20,7 @@ const footerCols = [
     links: [
       { label: "Services", href: "/services" },
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Pricing", href: "/pricing" },
+      // { label: "Pricing", href: "/pricing" },
     ],
   },
   {
